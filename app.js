@@ -163,6 +163,40 @@ const countdown = (() => {
 	};
 
 
+// removes the dimensions of the square class divs
+	const divNewPosition = () => {
+		const $divHeight = $('.squares').height() - 50;
+		const $divWidth = $('.squares').width() - 50;
+		const $newDivHeight = Math.floor(Math.random() * $divHeight);
+		const $newDivWidth = Math.floor(Math.random() * $divWidth);
+		return [$newDivHeight, $newDivWidth];
+	};
+
+	const animateDiv = () => {
+		const newPositionFunction = divNewPosition();
+		const oldPosition = $('.squares').offset();
+		var speed = calcSpeed([oldPosition.top, oldPosition.left], newPositionFunction);
+
+		$('.squares').animate({ top: newPositionFunction[0], left: newPositionFunction[1]}, speed, () => {
+			animateDiv();
+		});
+	};
+
+	const calculateSpeed = (prev, next) => {
+		const x = Math.abs(prev[1] - next[1]);
+		const y = Math.abs(prev[0] - next[0]);
+
+		const fastest = x > y ? x : y;
+
+		const modifySpeed = 0.1;
+
+		const speed = Math.ceil(greatest/modifySpeed);
+
+		return speed;
+
+	};
+
+
 $('#start-game').on('click', (e) => {
 	console.log('works');
 	newRound();
