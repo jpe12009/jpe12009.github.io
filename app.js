@@ -1,219 +1,97 @@
 $(() => {
 console.log('works');
 
-let score = 0;
-let time = 30;
-let round = 1;
-let name = '';
-let lives = 3;
 
-//--------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 
+//	COMPUTER AND PLAYER CLASSES
 
-$('#submit-name').on('click', (e) => {
-	name = $('input').val();
-	$(e.currentTarget).parent().css('display', 'none');
-
-	welcome();
-});
-
-//--------------------------------------------------------------------------------------------------------------
-	const welcome = () => {
-		const welcomeDiv = $('<div/>');
-		welcomeDiv.text('Welcome ' + name + '! Prepare to text your reflexes in Zip Ghosts!');
-
-		$('header').append(welcomeDiv);
-	};
-
-
-//--------------------------------------------------------------------------------------------------------------
-
-	const createGhosts = (num) => {
-		for (let i = 0; i < num; i++) {
-			const square = $('<div/>').on('click', (e) => {
-
-			const color = $(e.currentTarget).css('background-color');
-			colorCheck(color);
-				console.log(color, typeof color);
-
-			});		
-
-			randomColors(square);
-			$('.squares').append(square);
-
+	class CpuUnit {
+		constructor (name, attack, defense, accuracy, reward) {
+			this.name = name;
+			this.attack = attack;
+			this.defense = defense;
+			this.accuracy = accuracy;
+			this.reward = reward;
+		}
+		battle () {
 
 		}
-	};
-//--------------------------------------------------------------------------------------------------------------
-	const randomColors = (square) => {
-		const randomNum = Math.floor(Math.random() * 10) + 1;
+	}
 
-		switch (randomNum) {
-			case 1:
-			square.css('background-color', 'red');
-			break;
-			case 2:
-			square.css('background-color', 'blue');
-			break;
-			case 3:
-			square.css('background-color', 'green');
-			break;
-			case 4:
-			square.css('background-color', 'yellow');
-			break;
-			case 5:
-			square.css('background-color', 'purple');
-			break;
-			case 6:
-			square.css('background-color', 'teal');
-			break;
-			case 7:
-			square.css('background-color', 'lime');
-			break;
-			case 8:
-			square.css('background-color', 'black');
-			break;
-			case 9:
-			square.css('background-color', 'grey');
-			break;
-			case 10:
-			square.css('background-color', 'white');
-			break;
-		}  
-		
-	};	
-//--------------------------------------------------------------------------------------------------------------
-const colorCheck = (squareColor) => {
-	const colors = squareColor.substr(4, squareColor.length -1).split(" ");
-	const colorVal1 = parseInt(colors[0]);
-	const colorVal2 = parseInt(colors[1]);
-	const colorVal3 = parseInt(colors[2]); 
-
-
-};
-
-
-//--------------------------------------------------------------------------------------------------------------
-
-
-const currentScore = () => {
-	$('h1').text('Score:  ' + score);
-};
-
-//--------------------------------------------------------------------------------------------------------------
-const countdown = (() => {
-
-	const timer = setInterval(() => {
-		// where we want to decrease the time and update the timer on the dom
-		time--;
-		if(time === 0) {
-			clearInterval(timer);
-			round++;
+	class PlayerUnit {
+		constructor (name, attack, defense, accuracy, cost) {
+			this.name = name;
+			this.attack = attack;
+			this.defense = defense;
+			this.accuracy = accuracy;
+			this.cost = cost; 
 		}
-		$('#timer').text('timer: ' + time + 's');
-	}, 1000);
-});
+		battle () {
 
-//--------------------------------------------------------------------------------------------------------------
-// removes the dimensions of the square class divs
-	const divNewPosition = () => {
-		const $divHeight = $('.squares').height() - 50;
-		const $divWidth = $('.squares').width() - 50;
-		const $newDivHeight = Math.floor(Math.random() * $divHeight);
-		const $newDivWidth = Math.floor(Math.random() * $divWidth);
-		return [$newDivHeight, $newDivWidth];
-	};
-
-	const animateDiv = () => {
-		const newPositionFunction = divNewPosition();
-		const oldPosition = $('.squares').offset();
-		var speed = calculateSpeed([oldPosition.top, oldPosition.left], newPositionFunction);
-
-		$('.squares').animate({ top: newPositionFunction[0], left: newPositionFunction[1]}, speed, () => {
-			animateDiv();
-		});
-	};
-
-	const calculateSpeed = (prev, next) => {
-		const x = Math.abs(prev[1] - next[1]);
-		const y = Math.abs(prev[0] - next[0]);
-
-		const fastest = x > y ? x : y;
-
-		const modifySpeed = 0.1;
-
-		const speed = Math.ceil(fastest/modifySpeed);
-
-		return speed;
-
-	};
-
-//-------------------------------------------------------------------------------------------------------------
-
-	const newRound = () => {
-		$('.squares').empty();
-		$('#round').text('round: ' + round);
-		switch (round) {
-			case 1:
-		
-			createGhosts(10);
-				divNewPosition();
-			animateDiv();
-			calculateSpeed(1, 1);
-
-			time = 5;	
-			break;
-			case 2:
-			createGhosts(20);
-			time = 10;	
-			break;
-			case 3:
-			createGhosts(30);
-			time = 15;	
-			break;
-			case 4:
-			createGhosts(40);
-			time = 20;	
-			break;
-			case 5:
-			createGhosts(50);
-			time = 25;	
-			break;
-			case 6:
-			createGhosts(60);
-			time = 30;	
-			break;
-			case 7:
-			createGhosts(70);
-			time = 35;	
-			break;
-			case 8:
-			createGhosts(80);
-			time = 40;	
-			break;
-			case 9:
-			createGhosts(90);
-			time = 45;	
-			break;
-			case 10:
-			createGhosts(100);
-			time = 50;	
-			break;
 		}
+	}
+//--------------------------------------------------------------------------------------------------------
+
+//	UNITS - CPU OFFENSE
+
+	const goblin = new CpuUnit('goblin', 1, 1, .5, 5);
+
+	const orc = new CpuUnit('orc', 3, 4, .6, 20);
+
+	const lich = new CpuUnit('lich', 5, 5, .7, 40);
+
+// 	UNITS - CPU DEFENSE
+
+	const zombie = new PlayerUnit('zombie', 1, 3, .6, 5);
+
+	const troll = new PlayerUnit('troll', 2, 5, .7, 20);
+
+	const cyclops = new PlayerUnit('cyclops', 3, 10, .8, 40);
+
+
+//	UNITS - PLAYER OFFENSE
+
+	const soldier = new PlayerUnit('soldier', 1, 1, .5, 5);
+
+	const knight = new PlayerUnit('knight', 3, 4, .6, 20);
+
+	const wizard = new PlayerUnit('wizard', 5, 5, .7, 40);
+
+//	UNITS - PLAYER DEFENSE
+
+	const dwarf = new PlayerUnit('dwarf', 1, 3, .6, 5);
+
+	const elephant = new PlayerUnit('elephant', 2, 5, .7, 20);
+
+	const ent = new PlayerUnit('ent', 3, 10, .8, 40);
+
+//--------------------------------------------------------------------------------------------------------
+
+// COMPUTER AND PLAYER OBJECTS
+
+	const cpuCastle = {
+		life: 50,
+		gold: 0,
+		totalOffense: 0,
+		totalDefense: 0
 	};
 
+	const playerCastle = {
+		life: 50,
+		gold: 10,
+		totalOffense: 0,
+		totalDefense: 0
+	};
 
+//--------------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------------------
+// GAME OBJECT
 
-$('#start-game').on('click', (e) => {
-	console.log('works');
-	newRound();
-	countdown();
-});
+	const gameObject = {
 
-// divNewPosition();
-// animateDiv();
-// calculateSpeed();
+	};
 
 });

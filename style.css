@@ -1,21 +1,35 @@
-.squares div {
-	height: 50px;
-	width: 50px;
-	border: 1px solid grey;
-	border-radius: 2px;
-	display: inline-block;
-/*	position: fixed;*/
-}
 
-#container {
-	background-color: teal;
-	height: 1000px;
-	width: 1000px;
-}
 
-header {
-	width: 100%;
-	display: block;
+#battlefield {
+	position: absolute;
 	height: 100px;
-	background-color: lime;
+	/*border: 2px solid red;*/
+	width: 78.9%;
+	bottom: 110px;
+	left: 116.5px;
+	background: linear-gradient(#913202, #cdfa86);
+	
 }
+
+#battlefield p {
+	text-align: center;
+}
+
+img {
+	width: 80%;
+	height: 450px;
+	margin: 0 auto;
+	display: block;
+	margin-top: -20px;
+}
+
+body {
+	background: linear-gradient(#080f1a, #59926a)
+}
+
+/*a {
+	width: 80%;
+	height: 650px;
+	margin: 0 auto;
+	display: block;
+}*/
