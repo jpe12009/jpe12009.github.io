@@ -4,11 +4,13 @@
 	border: 1px solid grey;
 	border-radius: 2px;
 	display: inline-block;
-	/*position: fixed;*/
+/*	position: fixed;*/
 }
 
 #container {
 	background-color: teal;
+	height: 1000px;
+	width: 1000px;
 }
 
 header {

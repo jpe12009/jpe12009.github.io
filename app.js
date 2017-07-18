@@ -7,8 +7,7 @@ let round = 1;
 let name = '';
 let lives = 3;
 
-
-
+//--------------------------------------------------------------------------------------------------------------
 
 
 $('#submit-name').on('click', (e) => {
@@ -18,6 +17,7 @@ $('#submit-name').on('click', (e) => {
 	welcome();
 });
 
+//--------------------------------------------------------------------------------------------------------------
 	const welcome = () => {
 		const welcomeDiv = $('<div/>');
 		welcomeDiv.text('Welcome ' + name + '! Prepare to text your reflexes in Zip Ghosts!');
@@ -26,12 +26,12 @@ $('#submit-name').on('click', (e) => {
 	};
 
 
-
+//--------------------------------------------------------------------------------------------------------------
 
 	const createGhosts = (num) => {
 		for (let i = 0; i < num; i++) {
 			const square = $('<div/>').on('click', (e) => {
-	// pass to check function
+
 			const color = $(e.currentTarget).css('background-color');
 			colorCheck(color);
 				console.log(color, typeof color);
@@ -44,7 +44,7 @@ $('#submit-name').on('click', (e) => {
 
 		}
 	};
-
+//--------------------------------------------------------------------------------------------------------------
 	const randomColors = (square) => {
 		const randomNum = Math.floor(Math.random() * 10) + 1;
 
@@ -82,7 +82,7 @@ $('#submit-name').on('click', (e) => {
 		}  
 		
 	};	
-
+//--------------------------------------------------------------------------------------------------------------
 const colorCheck = (squareColor) => {
 	const colors = squareColor.substr(4, squareColor.length -1).split(" ");
 	const colorVal1 = parseInt(colors[0]);
@@ -93,14 +93,14 @@ const colorCheck = (squareColor) => {
 };
 
 
-
+//--------------------------------------------------------------------------------------------------------------
 
 
 const currentScore = () => {
 	$('h1').text('Score:  ' + score);
 };
 
-
+//--------------------------------------------------------------------------------------------------------------
 const countdown = (() => {
 
 	const timer = setInterval(() => {
@@ -114,13 +114,53 @@ const countdown = (() => {
 	}, 1000);
 });
 
+//--------------------------------------------------------------------------------------------------------------
+// removes the dimensions of the square class divs
+	const divNewPosition = () => {
+		const $divHeight = $('.squares').height() - 50;
+		const $divWidth = $('.squares').width() - 50;
+		const $newDivHeight = Math.floor(Math.random() * $divHeight);
+		const $newDivWidth = Math.floor(Math.random() * $divWidth);
+		return [$newDivHeight, $newDivWidth];
+	};
+
+	const animateDiv = () => {
+		const newPositionFunction = divNewPosition();
+		const oldPosition = $('.squares').offset();
+		var speed = calculateSpeed([oldPosition.top, oldPosition.left], newPositionFunction);
+
+		$('.squares').animate({ top: newPositionFunction[0], left: newPositionFunction[1]}, speed, () => {
+			animateDiv();
+		});
+	};
+
+	const calculateSpeed = (prev, next) => {
+		const x = Math.abs(prev[1] - next[1]);
+		const y = Math.abs(prev[0] - next[0]);
+
+		const fastest = x > y ? x : y;
+
+		const modifySpeed = 0.1;
+
+		const speed = Math.ceil(fastest/modifySpeed);
+
+		return speed;
+
+	};
+
+//-------------------------------------------------------------------------------------------------------------
 
 	const newRound = () => {
 		$('.squares').empty();
 		$('#round').text('round: ' + round);
 		switch (round) {
 			case 1:
+		
 			createGhosts(10);
+				divNewPosition();
+			animateDiv();
+			calculateSpeed(1, 1);
+
 			time = 5;	
 			break;
 			case 2:
@@ -163,39 +203,8 @@ const countdown = (() => {
 	};
 
 
-// removes the dimensions of the square class divs
-	const divNewPosition = () => {
-		const $divHeight = $('.squares').height() - 50;
-		const $divWidth = $('.squares').width() - 50;
-		const $newDivHeight = Math.floor(Math.random() * $divHeight);
-		const $newDivWidth = Math.floor(Math.random() * $divWidth);
-		return [$newDivHeight, $newDivWidth];
-	};
 
-	const animateDiv = () => {
-		const newPositionFunction = divNewPosition();
-		const oldPosition = $('.squares').offset();
-		var speed = calcSpeed([oldPosition.top, oldPosition.left], newPositionFunction);
-
-		$('.squares').animate({ top: newPositionFunction[0], left: newPositionFunction[1]}, speed, () => {
-			animateDiv();
-		});
-	};
-
-	const calculateSpeed = (prev, next) => {
-		const x = Math.abs(prev[1] - next[1]);
-		const y = Math.abs(prev[0] - next[0]);
-
-		const fastest = x > y ? x : y;
-
-		const modifySpeed = 0.1;
-
-		const speed = Math.ceil(greatest/modifySpeed);
-
-		return speed;
-
-	};
-
+//--------------------------------------------------------------------------------------------------------------
 
 $('#start-game').on('click', (e) => {
 	console.log('works');
@@ -203,5 +212,8 @@ $('#start-game').on('click', (e) => {
 	countdown();
 });
 
+// divNewPosition();
+// animateDiv();
+// calculateSpeed();
 
 });
