@@ -142,10 +142,12 @@
 	text-align: center;
 }
 
+
+
 #battlefield {
 
 	position: relative;
-	height: 300px;
+	height: 150px;
 	/*border: 2px solid red;*/
 	width: 100%;
 	/*bottom: 110px;*/
@@ -183,10 +185,18 @@ body {
 	background: linear-gradient(#080f1a, #59926a)
 }
 
+#modal {
+	
+	height: 50px;
+	margin: 0 auto;
+	text-align:center;
+}
+
 #outer
 {
     width:100%;
     text-align: center;
+ 
 }
 .inner
 {
@@ -199,6 +209,10 @@ button {
     background-color:#fed; 
     border:1px solid; 
     border-color: #696 #363 #363 #696; 
+}
+
+#exitShop {
+	margin-bottom: 20px;
 }
 /*a {
 	width: 80%;

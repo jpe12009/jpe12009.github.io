@@ -81,19 +81,19 @@ console.log('works');
 
 //	UNITS - PLAYER OFFENSE
 
-	const soldier = new PlayerUnit('soldier', 1, 1, .5, 5);
+	const soldier = new PlayerUnit('warrior', 1, 1, .5, 5);
 
-	const knight = new PlayerUnit('knight', 3, 4, .6, 20);
+	const knight = new PlayerUnit('mage', 3, 4, .6, 20);
 
 	const wizard = new PlayerUnit('wizard', 5, 5, .7, 30);
 
 //	UNITS - PLAYER DEFENSE
 
-	const dwarf = new PlayerUnit('dwarf', 1, 3, .6, 5);
+	const dwarf = new PlayerUnit('guard', 1, 3, .6, 5);
 
-	const elephant = new PlayerUnit('elephant', 2, 5, .7, 20);
+	const elephant = new PlayerUnit('druid', 2, 5, .7, 20);
 
-	const ent = new PlayerUnit('ent', 3, 10, .8, 30);
+	const ent = new PlayerUnit('knight', 3, 10, .8, 30);
 
 // let imgHeight = 400;
 // let numImgs = 12;
@@ -237,11 +237,11 @@ console.log('works');
 			} ,
 
 		marketMaker (){
-			const bigHeroDiv = $('<div id="outer"><div class="inner"><button type="submit" id ="Warrior"> Warrior - 5 Gold  </button></div><div class="inner"><button type="submit" id ="Mage"> Mage - 20 Gold</button></div>   <div class="inner"><button id ="Wizard"> Wizard - 30 Gold</button></div>        <div class="inner"><button type="submit" id ="Guard"> Guard - 5 Gold</button></div><div class="inner"><button type="submit" id ="Druid"> Druid - 20 Gold</button></div>     <div class="inner"><button id ="Knight"> Knight - 3O Gold</button></div></div><br>');
+			const bigHeroDiv = $('<div id="modal"><div id="outer"><div class="inner"><button type="submit" id ="Warrior"> Warrior - 5 Gold  </button></div><div class="inner"><button type="submit" id ="Mage"> Mage - 20 Gold</button></div>   <div class="inner"><button id ="Wizard"> Wizard - 30 Gold</button></div>        <div class="inner"><button type="submit" id ="Guard"> Guard - 5 Gold</button></div><div class="inner"><button type="submit" id ="Druid"> Druid - 20 Gold</button></div>     <div class="inner"><button id ="Knight"> Knight - 3O Gold</button></div></div><br></div>');
 			
 			const exitShop = $('<button id ="exitShop">Exit Shop</button>');
 
-			$('.img-div').append(bigHeroDiv).append(exitShop);
+			$('#battlefield').append(bigHeroDiv).append(exitShop);
 
 			const merchant1 = $('#Warrior');// .on('click', );
 			const merchant2 = $('#Mage');
@@ -313,10 +313,16 @@ console.log('works');
 					console.log(playerUnitArray);
 				}
 			});
-			// }
+		
+				$('#exitShop').on('click', (e) => {
+					$('#outer').children().remove();
+					$('#exitShop').remove();
+					console.log(cpuBoughtUnits);
+					console.log(playerUnitArray);
+			});
 		},
 
-
+				
 			playerBuyUnits (e) {	
 				// gameObject.marketMaker();
 		// 		let playerBoughtUnits = [];
@@ -353,21 +359,22 @@ console.log('works');
 
 
 
-// $('#knight').sprite({fps: 12, no_of_frames: 20});
+
 
 
 
 
 $('button').on('click', (e) => { 
 	const input = $('button').val();
-	
+	$('button').remove();
 	console.log('button works');
 	gameObject.marketMaker();
+
 
 
 });
 
 gameObject.newRound();
 gameObject.cpuBuyUnits();
-console.log(cpuBoughtUnits);
+
 });
