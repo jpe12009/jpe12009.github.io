@@ -123,13 +123,13 @@
 
 #round {
 	float: left;
-	display: inline;
+	display: inline-block;
 	width: 60px;
 }
 
 #gold {
 	float: right;
-	display: inline;
+	display: inline-block;
 	width:60px;
 }
 
@@ -137,10 +137,10 @@
 	float: left;
 	display: inline-block;
 }*/
-
+/*
 .img-div {
 	text-align: center;
-}
+}*/
 
 
 
@@ -165,7 +165,9 @@
 }
 
 
-
+#market {
+ 	width: 100%;
+}
 
 #battlefield p {
 	text-align: center;

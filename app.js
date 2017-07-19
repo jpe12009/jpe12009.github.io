@@ -147,6 +147,7 @@ console.log('works');
 			case 1:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 30;
+			playerCastle.gold = 30;
 			break;
 			case 2:
 			$('#gold').text('Gold: ' + playerCastle.gold);
@@ -255,7 +256,7 @@ console.log('works');
 				if (playerCastle.gold < 5) {
 					alert("You don't have enough gold to buy any warriors.");
 				} else if (playerCastle.gold >= 5) {
-					playerCastle.gold -= 5;
+					$('#gold').text('Gold: ' + (playerCastle.gold-= 5));
 					$('#battlefield').append($('<div>').attr('id', 'knight'));
 					playerUnitArray.push(soldier);
 				}
@@ -265,7 +266,7 @@ console.log('works');
 				if (playerCastle.gold < 20) {
 					alert("You don't have enough gold to buy a mage.");
 				} else if (playerCastle.gold >= 20) {
-					playerCastle.gold -= 20;
+					$('#gold').text('Gold: ' + (playerCastle.gold-= 20));
 					$('#battlefield').append($('<div>').attr('id', 'wizard'));
 					playerUnitArray.push(knight);
 				}
@@ -275,7 +276,7 @@ console.log('works');
 				if (playerCastle.gold < 30) {
 					alert("You don't have enough gold to buy a wizard.");
 				} else if (playerCastle.gold >= 30) {
-					playerCastle.gold -= 30;
+					$('#gold').text('Gold: ' + (playerCastle.gold-= 30));
 					$('#battlefield').append($('<div>').attr('id', 'mage'));
 					playerUnitArray.push(wizard);
 				}
@@ -287,7 +288,7 @@ console.log('works');
 				if (playerCastle.gold < 5) {
 					alert("You don't have enough gold to buy any guards.");
 				} else if (playerCastle.gold >= 5) {
-					playerCastle.gold -= 5;
+					$('#gold').text('Gold: ' + (playerCastle.gold-= 5));
 					$('#battlefield').append($('<div>').attr('id', 'baby'));
 					playerUnitArray.push(dwarf);
 				}
@@ -297,7 +298,7 @@ console.log('works');
 				if (playerCastle.gold < 20) {
 					alert("You don't have enough gold to buy a druid.");
 				} else if (playerCastle.gold >= 20) {
-					playerCastle.gold -= 20;
+					$('#gold').text('Gold: ' + (playerCastle.gold-= 20));
 					$('#battlefield').append($('<div>').attr('id', 'dwarf'));
 					playerUnitArray.push(elephant);
 				}
@@ -307,7 +308,7 @@ console.log('works');
 				if (playerCastle.gold < 30) {
 					alert("You don't have enough gold to buy a knight.");
 				} else if (playerCastle.gold >= 30) {
-					playerCastle.gold -= 30;
+					$('#gold').text('Gold: ' + (playerCastle.gold-= 30));
 					$('#battlefield').append($('<div>').attr('id', 'hero'));
 					playerUnitArray.push(ent);
 					console.log(playerUnitArray);
@@ -364,7 +365,7 @@ console.log('works');
 
 
 
-$('button').on('click', (e) => { 
+$('#market').on('click', (e) => { 
 	const input = $('button').val();
 	$('button').remove();
 	console.log('button works');
