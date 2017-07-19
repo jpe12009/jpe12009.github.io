@@ -134,12 +134,12 @@ console.log('works');
 
 	const gameObject = {
 		createGoodGuys () {
-			const promptAnswer = $('input').val();
-			const makeWarrior = $('<div/>').attr('id', 'knight');
+			// const promptAnswer = $('input').val();
+			// const makeWarrior = $('<div/>').attr('id', 'knight');
 		},
 		newRound () {
-			$('.good-guy').empty();
-			$('.bad-guy').empty();
+			$('.good-guy').remove();
+			$('.bad-guy').remove();
 			$('#round').text('Round ' + round);
 			switch (round) {
 			case 1:
@@ -156,11 +156,10 @@ console.log('works');
 			break;
 		}
 		},
-		playerBuyUnits () {
-
-		},
+		
 		appendCpuUnits (cpuBoughtUnits) {
 			for (var i = 0; i < cpuBoughtUnits.length; i++) {
+				if (cpuBoughtUnits[i] !== null) {
 				switch (cpuBoughtUnits[i].name) {
 					case "goblin":
 					$("#battlefield").append($('<div id ="goblin"> </div>'));
@@ -180,16 +179,18 @@ console.log('works');
 					case "medusa":
 					$("#battlefield").append($('<div id ="medusa"> </div>'));
 					break;
-
+				}
 				}	
 			}
 
 		},
 		randomNumber (badGuy) {
 			const randomNum = Math.floor(Math.random() * 6) + 1;
+
 		if (randomNum === 1 && cpuCastle.gold >= badGuy[0].reward) {
 			cpuCastle.gold -= badGuy[0].reward;
 			return badGuy[0];
+
 		} else if (randomNum === 2 && cpuCastle.gold >= badGuy[1].reward){
 			cpuCastle.gold -= badGuy[1].reward;
 			return badGuy[1];
@@ -210,6 +211,8 @@ console.log('works');
 			cpuCastle.gold -= badGuy[5].reward;
 			return badGuy[5];
 		
+		} else {
+			return null;
 		}
 	},
 	// makes an array that has different units that can be randomly bought 
@@ -217,15 +220,48 @@ console.log('works');
 		cpuBuyUnits () {
 			let cpuBoughtUnits = [];
 			const badGuyArray = [goblin, orc, lich, zombie, minion, medusa];
-				while (cpuCastle.gold > 0) {
+				while (cpuCastle.gold > 0 ) {
+			//if (gameObject.randomNumber(badGuyArray) != null) {
 				cpuBoughtUnits.push(gameObject.randomNumber(badGuyArray));
+			//}
 			// bug where random number returns undefined into array if unit can't be afforded
 				}
 				console.log(cpuBoughtUnits);
 				console.log(cpuCastle.gold);
+			
 				gameObject.appendCpuUnits(cpuBoughtUnits);
-			} 
+			
+				
+			} ,
+
+		marketMaker (){
+
+			for (let i = 0; i < 6; i++) {
+		const merchant = $('<div/>').attr('id', i);
+			}
+		},
+
+
+			playerBuyUnits (e) {	
+				
+				let playerBoughtUnits = [];
+				const goodGuyArray = [soldier, knight, wizard, dwarf, elephant, ent];
+				// let buttonValue = $(e.currentTarget).attr('id');
+				// let buttonValue2 = $('button').attr('id').val();
+				for (var i = 0; i < goodGuyArray.length; i++) {
+			if (goodGuyArray[i].name === '') {
+				$('#battlefield').append($('<div id ="hero">'));
+			}
+		}
+			// console.log(buttonValue);
+				}
 		};
+
+// div loop make the six buying divs, assign id's
+
+// on click run a function that checks gold and if enough, run append function,
+// otherwise alert you don't have enough and return to buying screen.
+// button that starts next round
 
 // at the beginning of each round cpu gets a certain amount of gold
 // it randomly buys what it can until nothing else can be bought
@@ -245,10 +281,13 @@ console.log('works');
 // $('#knight').sprite({fps: 12, no_of_frames: 20});
 
 
+
+
 $('button').on('click', (e) => { 
-// e (the argument, the event listener object) 
+	const input = $('button').val();
+	
 	console.log('button works');
-	newRound();
+	gameObject.playerBuyUnits();
 
 
 });

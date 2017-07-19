@@ -163,6 +163,23 @@ body {
 	background: linear-gradient(#080f1a, #59926a)
 }
 
+#outer
+{
+    width:100%;
+    text-align: center;
+}
+.inner
+{
+    display: inline-block;
+}
+
+button { 
+    color:#050; 
+    font: old 84% 'trebuchet ms',helvetica,sans-serif; 
+    background-color:#fed; 
+    border:1px solid; 
+    border-color: #696 #363 #363 #696; 
+}
 /*a {
 	width: 80%;
 	height: 650px;
