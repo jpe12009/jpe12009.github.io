@@ -3,10 +3,16 @@
 	width: 100px;
 	background-image: url('sprites/knight2.png');
 	display: inline-block;
+/*	overflow: hidden;
+	clear: both;*/
+/*	position: absolute;*/
+/*	bottom: 0;*/
+
 
 }
 
 #battlefield #zombie {
+	vertical-align: top;
 	height: 100px;
 	width: 80px;
 	background-image: url('sprites/zombie_0.png');
@@ -14,6 +20,7 @@
 }
 
 #battlefield #goblin {
+
 	height: 100px;
 	width: 80px;
 	background-image: url('sprites/goblin.png');
@@ -25,9 +32,12 @@
 	width: 25px;
 	background-image: url('sprites/wizard spritesheet calciumtrice.png');
 	display: inline-block;
+/*	position: absolute;
+	bottom: 0;*/
 }
 
 #battlefield #orc {
+
 	height: 32px;
 	width: 25px;
 	background-image: url('sprites/orc spritesheet calciumtrice.png');
@@ -63,12 +73,16 @@
 	width: 100px;
 	background-image: url('sprites/spritesheets/gnu-120x100.png');
 	display: inline-block;
+/*	position: absolute;
+	bottom: 0;*/
 }
 #battlefield #mage {
 	height: 100px;
 	width: 120px;
 	background-image: url('sprites/spritesheets/mage-2-122x110.png');
 	display: inline-block;
+/*	position: absolute;
+	bottom: 0;*/
 }
 
 #battlefield #medusa {
@@ -85,6 +99,8 @@
 	width: 90px;
 	background-image: url('sprites/knight.png');
 	display: inline-block;
+/*	position: absolute;
+	bottom: 0;*/
 }
 
 #battlefield #baby {
@@ -93,6 +109,8 @@
 	width: 50px;
 	background-image: url('sprites/Ye_Oldy_Knight_Guy.png');
 	display: inline-block;
+/*	position: absolute;
+	bottom: 0;*/
 }
 
 #battlefield #lich {
@@ -126,7 +144,7 @@
 
 #battlefield {
 
-/*	position: absolute;*/
+	position: relative;
 	height: 300px;
 	/*border: 2px solid red;*/
 	width: 100%;
@@ -137,11 +155,13 @@
 	/*left: 58.25px;
 	right: 58.25px;*/
 	background: linear-gradient(#913202, #cdfa86);
+	padding: 20px;
 	text-align: center;
 /*	display:block;
     overflow:hidden;*/
 	
 }
+
 
 
 

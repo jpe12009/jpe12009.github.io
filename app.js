@@ -8,6 +8,8 @@ console.log('works');
 //	GLOBAL VARIABLES
 
 	let round = 1;
+	let playerUnitArray = [];
+	let cpuBoughtUnits = [];
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -123,7 +125,7 @@ console.log('works');
 
 	const playerCastle = {
 		life: 10,
-		gold: 20,
+		gold: 30,
 		totalOffense: 0,
 		totalDefense: 0
 	};
@@ -218,7 +220,7 @@ console.log('works');
 	// makes an array that has different units that can be randomly bought 
 // cycles through until until cpu gold = 0;
 		cpuBuyUnits () {
-			let cpuBoughtUnits = [];
+			cpuBoughtUnits = [];
 			const badGuyArray = [goblin, orc, lich, zombie, minion, medusa];
 				while (cpuCastle.gold > 0 ) {
 			//if (gameObject.randomNumber(badGuyArray) != null) {
@@ -235,24 +237,97 @@ console.log('works');
 			} ,
 
 		marketMaker (){
+			const bigHeroDiv = $('<div id="outer"><div class="inner"><button type="submit" id ="Warrior"> Warrior - 5 Gold  </button></div><div class="inner"><button type="submit" id ="Mage"> Mage - 20 Gold</button></div>   <div class="inner"><button id ="Wizard"> Wizard - 30 Gold</button></div>        <div class="inner"><button type="submit" id ="Guard"> Guard - 5 Gold</button></div><div class="inner"><button type="submit" id ="Druid"> Druid - 20 Gold</button></div>     <div class="inner"><button id ="Knight"> Knight - 3O Gold</button></div></div><br>');
+			
+			const exitShop = $('<button id ="exitShop">Exit Shop</button>');
 
-			for (let i = 0; i < 6; i++) {
-		const merchant = $('<div/>').attr('id', i);
-			}
+			$('.img-div').append(bigHeroDiv).append(exitShop);
+
+			const merchant1 = $('#Warrior');// .on('click', );
+			const merchant2 = $('#Mage');
+			const merchant3 = $('#Wizard');
+			const merchant4 = $('#Guard');
+			const merchant5 = $('#Druid');
+			const merchant6 = $('#Knight');
+
+			merchant1.on('click', (e) => {
+				console.log('Warrior clicked');
+				if (playerCastle.gold < 5) {
+					alert("You don't have enough gold to buy any warriors.");
+				} else if (playerCastle.gold >= 5) {
+					playerCastle.gold -= 5;
+					$('#battlefield').append($('<div>').attr('id', 'knight'));
+					playerUnitArray.push(soldier);
+				}
+			});
+			merchant2.on('click', (e) => {
+				console.log('Mage clicked');
+				if (playerCastle.gold < 20) {
+					alert("You don't have enough gold to buy a mage.");
+				} else if (playerCastle.gold >= 20) {
+					playerCastle.gold -= 20;
+					$('#battlefield').append($('<div>').attr('id', 'wizard'));
+					playerUnitArray.push(knight);
+				}
+			});
+			merchant3.on('click', (e) => {
+				console.log('Wizard clicked');
+				if (playerCastle.gold < 30) {
+					alert("You don't have enough gold to buy a wizard.");
+				} else if (playerCastle.gold >= 30) {
+					playerCastle.gold -= 30;
+					$('#battlefield').append($('<div>').attr('id', 'mage'));
+					playerUnitArray.push(wizard);
+				}
+
+				
+			});
+			merchant4.on('click', (e) => {
+				console.log('Guard clicked');
+				if (playerCastle.gold < 5) {
+					alert("You don't have enough gold to buy any guards.");
+				} else if (playerCastle.gold >= 5) {
+					playerCastle.gold -= 5;
+					$('#battlefield').append($('<div>').attr('id', 'baby'));
+					playerUnitArray.push(dwarf);
+				}
+			});
+			merchant5.on('click', (e) => {
+				console.log('Druid clicked');
+				if (playerCastle.gold < 20) {
+					alert("You don't have enough gold to buy a druid.");
+				} else if (playerCastle.gold >= 20) {
+					playerCastle.gold -= 20;
+					$('#battlefield').append($('<div>').attr('id', 'dwarf'));
+					playerUnitArray.push(elephant);
+				}
+			});
+			merchant6.on('click', (e) => {
+				console.log('Knight clicked');
+				if (playerCastle.gold < 30) {
+					alert("You don't have enough gold to buy a knight.");
+				} else if (playerCastle.gold >= 30) {
+					playerCastle.gold -= 30;
+					$('#battlefield').append($('<div>').attr('id', 'hero'));
+					playerUnitArray.push(ent);
+					console.log(playerUnitArray);
+				}
+			});
+			// }
 		},
 
 
 			playerBuyUnits (e) {	
-				
-				let playerBoughtUnits = [];
-				const goodGuyArray = [soldier, knight, wizard, dwarf, elephant, ent];
-				// let buttonValue = $(e.currentTarget).attr('id');
-				// let buttonValue2 = $('button').attr('id').val();
-				for (var i = 0; i < goodGuyArray.length; i++) {
-			if (goodGuyArray[i].name === '') {
-				$('#battlefield').append($('<div id ="hero">'));
-			}
-		}
+				// gameObject.marketMaker();
+		// 		let playerBoughtUnits = [];
+		// 		const goodGuyArray = [soldier, knight, wizard, dwarf, elephant, ent];
+		// 		// let buttonValue = $(e.currentTarget).attr('id');
+		// 		// let buttonValue2 = $('button').attr('id').val();
+		// 		for (var i = 0; i < goodGuyArray.length; i++) {
+		// 	if (goodGuyArray[i].name === '') {
+		// 		$('#battlefield').append($('<div id ="hero">'));
+		// 	}
+		// }
 			// console.log(buttonValue);
 				}
 		};
@@ -287,12 +362,12 @@ $('button').on('click', (e) => {
 	const input = $('button').val();
 	
 	console.log('button works');
-	gameObject.playerBuyUnits();
+	gameObject.marketMaker();
 
 
 });
 
 gameObject.newRound();
 gameObject.cpuBuyUnits();
-
+console.log(cpuBoughtUnits);
 });
