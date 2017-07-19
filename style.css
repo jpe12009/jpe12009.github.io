@@ -106,13 +106,22 @@
 #round {
 	float: left;
 	display: inline;
-	width: 75px;
+	width: 60px;
 }
 
 #gold {
 	float: right;
 	display: inline;
-	width:75px;
+	width:60px;
+}
+
+/*button {
+	float: left;
+	display: inline-block;
+}*/
+
+.img-div {
+	text-align: center;
 }
 
 #battlefield {

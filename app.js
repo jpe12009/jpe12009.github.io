@@ -66,15 +66,15 @@ console.log('works');
 
 	const orc = new CpuUnit('orc', 3, 4, .6, 20);
 
-	const lich = new CpuUnit('lich', 5, 5, .7, 40);
+	const lich = new CpuUnit('lich', 5, 5, .7, 30);
 
 // 	UNITS - CPU DEFENSE
 
-	const zombie = new PlayerUnit('zombie', 1, 3, .6, 5);
+	const zombie = new CpuUnit('zombie', 1, 3, .6, 5);
 
-	const troll = new PlayerUnit('troll', 2, 5, .7, 20);
+	const troll = new CpuUnit('troll', 2, 5, .7, 20);
 
-	const cyclops = new PlayerUnit('cyclops', 3, 10, .8, 40);
+	const cyclops = new CpuUnit('cyclops', 3, 10, .8, 30);
 
 
 //	UNITS - PLAYER OFFENSE
@@ -83,7 +83,7 @@ console.log('works');
 
 	const knight = new PlayerUnit('knight', 3, 4, .6, 20);
 
-	const wizard = new PlayerUnit('wizard', 5, 5, .7, 40);
+	const wizard = new PlayerUnit('wizard', 5, 5, .7, 30);
 
 //	UNITS - PLAYER DEFENSE
 
@@ -91,7 +91,7 @@ console.log('works');
 
 	const elephant = new PlayerUnit('elephant', 2, 5, .7, 20);
 
-	const ent = new PlayerUnit('ent', 3, 10, .8, 40);
+	const ent = new PlayerUnit('ent', 3, 10, .8, 30);
 
 // let imgHeight = 400;
 // let numImgs = 12;
@@ -115,15 +115,15 @@ console.log('works');
 // COMPUTER AND PLAYER OBJECTS
 
 	const cpuCastle = {
-		life: 50,
+		life: 10,
 		gold: 0,
 		totalOffense: 0,
 		totalDefense: 0
 	};
 
 	const playerCastle = {
-		life: 50,
-		gold: 10,
+		life: 10,
+		gold: 20,
 		totalOffense: 0,
 		totalDefense: 0
 	};
@@ -140,8 +140,68 @@ console.log('works');
 		newRound () {
 			$('.good-guy').empty();
 			$('.bad-guy').empty();
-			$('#round').text('Round: ' + round);
+			$('#round').text('Round ' + round);
+			switch (round) {
+			case 1:
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			cpuCastle.gold = 20;
+			break;
+			case 2:
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			cpuCastle.gold = 40;
+			break;
+			case 3:
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			cpuCastle.gold = 60;
+			break;
 		}
+		},
+		playerBuyUnits () {
+
+		},
+		randomNumber (badGuy) {
+			const randomNum = Math.floor(Math.random() * 6) + 1;
+		if (randomNum === 1 && cpuCastle.gold >= badGuy[0].reward) {
+			cpuCastle.gold -= badGuy[0].reward;
+			return badGuy[0];
+
+		} else if (randomNum === 2 && cpuCastle.gold >= badGuy[1].reward){
+			cpuCastle.gold -= badGuy[1].reward;
+			return badGuy[1];
+
+		} else if (randomNum === 3 && cpuCastle.gold >= badGuy[2].reward){
+			cpuCastle.gold -= badGuy[2].reward;	
+			return badGuy[2];
+		
+		} else if (randomNum === 4 && cpuCastle.gold >= badGuy[3].reward){	
+			cpuCastle.gold -= badGuy[3].reward;	
+			return badGuy[3];
+
+		} else if (randomNum === 5 && cpuCastle.gold >= badGuy[4].reward){	
+			cpuCastle.gold -= badGuy[4].reward;
+			return badGuy[4];
+
+		} else if (randomNum === 6 && cpuCastle.gold >= badGuy[5].reward){	
+			cpuCastle.gold -= badGuy[5].reward;
+			return badGuy[5];
+		}
+	},
+		cpuBuyUnits () {
+			let cpuBoughtUnits = [];
+			const badGuyArray = [goblin, orc, lich, zombie, troll, cyclops];
+			while (cpuCastle.gold > 0) {
+			cpuBoughtUnits.push(gameObject.randomNumber(badGuyArray));
+			
+
+			// bug where units beyond current gold amount can be bought so as long as gold total is above 0
+
+
+				}
+				console.log(cpuBoughtUnits);
+				console.log(cpuCastle.gold);
+			} 
+// make an array that has the differnt units that can be bought, cycle through them until gold = 0;
+		
 	};
 
 // at the beginning of each round cpu gets a certain amount of gold
@@ -170,6 +230,7 @@ $('button').on('click', (e) => {
 
 });
 
-
+gameObject.newRound();
+gameObject.cpuBuyUnits();
 
 });
