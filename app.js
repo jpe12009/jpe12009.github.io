@@ -9,7 +9,13 @@ console.log('works');
 
 	let round = 1;
 	let playerUnitArray = [];
+
 	let cpuBoughtUnits = [];
+	let cpuUnitArray = [];
+
+	const checkRoundStatus = () => {
+
+	};
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -24,14 +30,32 @@ console.log('works');
 			this.reward = reward;
 		}
 		battle () {
-
-
+			console.log('The ' + cpuUnitArray[0].name + ' attacks!');
+			for (let i = 0; i < playerUnitArray.length; i++) {	
+			if (Math.random() <= this.accuracy) {
+				playerUnitArray[i].defense -= this.attack;
+				console.log('The ' + cpuUnitArray[0].name + ' hit your ' + playerUnitArray[i].name + '.');
+				console.log(playerUnitArray[i].defense, ' remaining defense');
+				if (playerUnitArray[i].defense <= 0) {
+					console.log('Your ' + playerUnitArray[i].name + ' was defeated by a ' + this.name + '. Stand your ground!');
+					playerUnitArray.shift();
+					//check for no enemies left
+					this.battle();
+				}	
+				if (playerUnitArray[i].defense > 0) {
+					playerUnitArray[i].battle();
+				}
+			} else if (Math.random() > this.accuracy) {
+				console.log('The ' + this.name + ' missed! Your unit unleashes a counterattack!');
+				playerUnitArray[i].battle();
+			}
 // math.random to check for hit - spacebattle
 
 // return true so other object knows if itself was hit
 
 // if attack >= defense, remove other div from dom and give reward
 // if attack < defense, adjust targets defense if still alive after taking damage
+			}
 		}
 	}
 
@@ -44,8 +68,27 @@ console.log('works');
 			this.cost = cost; 
 		}
 		battle () {
-		// 	console.log('The aliens shoot back!');
-		// if (Math.random() < this.accuracy) {
+				console.log('Your ' + playerUnitArray[0].name + ' attacks!');
+			for (let i = 0; i < cpuUnitArray.length; i++) {	
+			if (Math.random() <= this.accuracy) {
+				console.log('Your ' + playerUnitArray[i].name + ' hits the ' + cpuUnitArray[i].name + ".");
+				cpuUnitArray[i].defense -= this.attack;
+				console.log(cpuUnitArray[i].defense, ' remaining defense');
+				if (cpuUnitArray[i].defense <= 0) {
+					console.log('Your ' + playerUnitArray[i].name + ' defeated a ' + cpuUnitArray[i].name + '. Praise baby Jesus!');
+					cpuUnitArray.shift();
+					this.battle();
+					//this would be where you add gold for defeating enemy
+					// check for round end (no enemies left)
+					// tell this unit to attack again -> ? this.battle();
+				}	
+				if (cpuUnitArray[i].defense > 0) {
+					cpuUnitArray[i].battle();
+				}
+			} else if (Math.random() > this.accuracy){
+				console.log('The ' + this.name + ' missed! Your opponent unleashes a counterattack!');
+				cpuUnitArray[i].battle();
+			}
 		// 	USS_Schwarzenegger.hull -= this.firepower;
 		// 	if (USS_Schwarzenegger.hull <= 0) {
 		// 		alert('Your spaceship blew up. You lose.');
@@ -58,6 +101,7 @@ console.log('works');
 		// 	alert('The alien ship missed you!');
 		// 	USS_Schwarzenegger.attack();
 		// }
+			}
 		}
 	}
 //--------------------------------------------------------------------------------------------------------
@@ -229,7 +273,7 @@ console.log('works');
 			//}
 			// bug where random number returns undefined into array if unit can't be afforded
 				}
-				console.log(cpuBoughtUnits);
+				// console.log(cpuBoughtUnits);
 				console.log(cpuCastle.gold);
 			
 				gameObject.appendCpuUnits(cpuBoughtUnits);
@@ -317,14 +361,19 @@ console.log('works');
 		
 				$('#exitShop').on('click', (e) => {
 					$('#outer').children().remove();
+					cpuUnitArray = cpuBoughtUnits.filter(function(n) {
+						return n != undefined;
+					});
 					$('#exitShop').remove();
-					console.log(cpuBoughtUnits);
+					
+					console.log(cpuUnitArray);
 					console.log(playerUnitArray);
+					playerUnitArray[0].battle();
 			});
 		},
 
 				
-			playerBuyUnits (e) {	
+			checkEndRound () {	
 				// gameObject.marketMaker();
 		// 		let playerBoughtUnits = [];
 		// 		const goodGuyArray = [soldier, knight, wizard, dwarf, elephant, ent];
