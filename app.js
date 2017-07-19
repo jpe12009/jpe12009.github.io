@@ -72,9 +72,9 @@ console.log('works');
 
 	const zombie = new CpuUnit('zombie', 1, 3, .6, 5);
 
-	const troll = new CpuUnit('troll', 2, 5, .7, 20);
+	const minion = new CpuUnit('minion', 2, 5, .7, 20);
 
-	const cyclops = new CpuUnit('cyclops', 3, 10, .8, 30);
+	const medusa = new CpuUnit('medusa', 3, 10, .8, 30);
 
 
 //	UNITS - PLAYER OFFENSE
@@ -144,19 +144,45 @@ console.log('works');
 			switch (round) {
 			case 1:
 			$('#gold').text('Gold: ' + playerCastle.gold);
-			cpuCastle.gold = 20;
+			cpuCastle.gold = 30;
 			break;
 			case 2:
 			$('#gold').text('Gold: ' + playerCastle.gold);
-			cpuCastle.gold = 40;
+			cpuCastle.gold = 50;
 			break;
 			case 3:
 			$('#gold').text('Gold: ' + playerCastle.gold);
-			cpuCastle.gold = 60;
+			cpuCastle.gold = 70;
 			break;
 		}
 		},
 		playerBuyUnits () {
+
+		},
+		appendCpuUnits (cpuBoughtUnits) {
+			for (var i = 0; i < cpuBoughtUnits.length; i++) {
+				switch (cpuBoughtUnits[i].name) {
+					case "goblin":
+					$("#battlefield").append($('<div id ="goblin"> </div>'));
+					break;
+					case "orc":
+					$("#battlefield").append($('<div id ="orc"> </div>'));
+					break;
+					case "lich":
+					$("#battlefield").append($('<div id ="lich"> </div>'));
+					break;
+						case "zombie":
+					$("#battlefield").append($('<div id ="zombie"> </div>'));
+					break;
+					case "minion":
+					$("#battlefield").append($('<div id ="minion"> </div>'));
+					break;
+					case "medusa":
+					$("#battlefield").append($('<div id ="medusa"> </div>'));
+					break;
+
+				}	
+			}
 
 		},
 		randomNumber (badGuy) {
@@ -164,7 +190,6 @@ console.log('works');
 		if (randomNum === 1 && cpuCastle.gold >= badGuy[0].reward) {
 			cpuCastle.gold -= badGuy[0].reward;
 			return badGuy[0];
-
 		} else if (randomNum === 2 && cpuCastle.gold >= badGuy[1].reward){
 			cpuCastle.gold -= badGuy[1].reward;
 			return badGuy[1];
@@ -184,25 +209,23 @@ console.log('works');
 		} else if (randomNum === 6 && cpuCastle.gold >= badGuy[5].reward){	
 			cpuCastle.gold -= badGuy[5].reward;
 			return badGuy[5];
+		
 		}
 	},
+	// makes an array that has different units that can be randomly bought 
+// cycles through until until cpu gold = 0;
 		cpuBuyUnits () {
 			let cpuBoughtUnits = [];
-			const badGuyArray = [goblin, orc, lich, zombie, troll, cyclops];
-			while (cpuCastle.gold > 0) {
-			cpuBoughtUnits.push(gameObject.randomNumber(badGuyArray));
-			
-
-			// bug where units beyond current gold amount can be bought so as long as gold total is above 0
-
-
+			const badGuyArray = [goblin, orc, lich, zombie, minion, medusa];
+				while (cpuCastle.gold > 0) {
+				cpuBoughtUnits.push(gameObject.randomNumber(badGuyArray));
+			// bug where random number returns undefined into array if unit can't be afforded
 				}
 				console.log(cpuBoughtUnits);
 				console.log(cpuCastle.gold);
+				gameObject.appendCpuUnits(cpuBoughtUnits);
 			} 
-// make an array that has the differnt units that can be bought, cycle through them until gold = 0;
-		
-	};
+		};
 
 // at the beginning of each round cpu gets a certain amount of gold
 // it randomly buys what it can until nothing else can be bought
