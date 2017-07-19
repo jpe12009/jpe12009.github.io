@@ -17,7 +17,12 @@ console.log('works');
 			this.reward = reward;
 		}
 		battle () {
+// math.random to check for hit - spacebattle
 
+// return true so other object knows if itself was hit
+
+// if attack >= defense, remove other div from dom and give reward
+// if attack < defense, adjust targets defense if still alive after taking damage
 		}
 	}
 
@@ -68,6 +73,23 @@ console.log('works');
 
 	const ent = new PlayerUnit('ent', 3, 10, .8, 40);
 
+// let imgHeight = 400;
+// let numImgs = 12;
+// let cont = 0;
+// let img = $('#container').find('png');
+ 
+// let animation = setInterval( moveSprite,100);
+ 
+// function moveSprite(){
+//     img.css('margin-top', -1 * (cont*imgHeight));
+     
+//     cont++;
+//     if(cont == numImgs){
+//         clearInterval(animation);
+//     }
+// }
+// moveSprite();
+
 //--------------------------------------------------------------------------------------------------------
 
 // COMPUTER AND PLAYER OBJECTS
@@ -91,7 +113,30 @@ console.log('works');
 // GAME OBJECT
 
 	const gameObject = {
-
+		createGoodGuys () {
+			const promptAnswer = $('input').val();
+			const makeWarrior = $('<div/>').attr('id', 'knight');
+		}
 	};
+
+// at the beginning of each round cpu gets a certain amount of gold
+// it randomly buys what it can until nothing else can be bought
+// different buttons at the start of the round you can click to buy units
+// units are placed onto battlefield
+
+//player clicks a bunch until no more units remain.
+
+// who would you like to attack with? 
+// who would you like to attack?
+// go until no more units -- end of round
+// give rewards and begin buying portion
+// different buttons at the end of round you can click to buy units
+
+
+
+$('#knight').sprite({fps: 12, no_of_frames: 20});
+
+console.log(wizard);
+
 
 });
