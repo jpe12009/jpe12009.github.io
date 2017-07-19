@@ -4,6 +4,11 @@ console.log('works');
 
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
+
+//	GLOBAL VARIABLES
+
+	let round = 1;
+
 //--------------------------------------------------------------------------------------------------------
 
 //	COMPUTER AND PLAYER CLASSES
@@ -17,6 +22,8 @@ console.log('works');
 			this.reward = reward;
 		}
 		battle () {
+
+
 // math.random to check for hit - spacebattle
 
 // return true so other object knows if itself was hit
@@ -35,7 +42,20 @@ console.log('works');
 			this.cost = cost; 
 		}
 		battle () {
-
+		// 	console.log('The aliens shoot back!');
+		// if (Math.random() < this.accuracy) {
+		// 	USS_Schwarzenegger.hull -= this.firepower;
+		// 	if (USS_Schwarzenegger.hull <= 0) {
+		// 		alert('Your spaceship blew up. You lose.');
+		// 		throw new Error();
+		// 	}
+		// alert('You were hit! Your hull is ' + USS_Schwarzenegger.hull + ' out of 20.');
+		// 	USS_Schwarzenegger.attack();
+				
+		// } else {
+		// 	alert('The alien ship missed you!');
+		// 	USS_Schwarzenegger.attack();
+		// }
 		}
 	}
 //--------------------------------------------------------------------------------------------------------
@@ -116,6 +136,11 @@ console.log('works');
 		createGoodGuys () {
 			const promptAnswer = $('input').val();
 			const makeWarrior = $('<div/>').attr('id', 'knight');
+		},
+		newRound () {
+			$('.good-guy').empty();
+			$('.bad-guy').empty();
+			$('#round').text('Round: ' + round);
 		}
 	};
 
@@ -134,9 +159,17 @@ console.log('works');
 
 
 
-$('#knight').sprite({fps: 12, no_of_frames: 20});
+// $('#knight').sprite({fps: 12, no_of_frames: 20});
 
-console.log(wizard);
+
+$('button').on('click', (e) => { 
+// e (the argument, the event listener object) 
+	console.log('button works');
+	newRound();
+
+
+});
+
 
 
 });

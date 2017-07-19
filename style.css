@@ -103,6 +103,17 @@
 	display: inline-block;
 }
 
+#round {
+	float: left;
+	display: inline;
+	width: 75px;
+}
+
+#gold {
+	float: right;
+	display: inline;
+	width:75px;
+}
 
 #battlefield {
 
@@ -133,7 +144,7 @@
 
 img {
 	width: 80%;
-	height: 475px;
+	height: 550px;
 	margin: 0 auto;
 	display: block;
 	
