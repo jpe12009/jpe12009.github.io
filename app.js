@@ -7,14 +7,17 @@ console.log('works');
 
 //	GLOBAL VARIABLES
 
-		const cpuCastle = {
+
+// global player+cpu unit arrays are being cleared by NewRound so they don't show in console logs
+
+		let cpuCastle = {
 		life: 10,
 		gold: 0,
 		totalOffense: 0,
 		totalDefense: 0
 	};
 
-	const playerCastle = {
+	let playerCastle = {
 		life: 10,
 		gold: 30,
 		totalOffense: 0,
@@ -43,7 +46,7 @@ console.log('works');
 		battle () {
 			
 
-		//	lines 84 through 102 need help
+
 			// check your logic! Begin addeding functions that remove destroyed units
 			// push destroyed units into new array
 
@@ -54,31 +57,30 @@ console.log('works');
 				playerUnitArray[0].defense -= this.attack;
 				console.log('Your ' + playerUnitArray[0].name + ' was hit by a ' + this.name);
 				if (playerUnitArray[0].defense > 0) {
+						
+						playerUnitArray[0].battle();
 						console.log('Your ' + playerUnitArray[0].name + ' survives and strikes back!');
-						return playerUnitArray[0].battle();
 					}
 					else if (playerUnitArray[0].defense <= 0) {
-					console.log('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
 					playerUnitArray.shift();
-					checkCpuRoundWin();// check for cpu round end life damage
-	//			}	else
-				//playerUnitArray[i].defense -= this.attack;
-				
+					checkCpuRoundWin();
+					console.log('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
+					if (checkPlayerRoundWin() === false) {
+						return playerUnitArray[0].battle();
+					} 
+
+				// if checkplayerround win = false, do another attack????
+
 				//console.log('The ' + this.name + ' hit your ' + playerUnitArray[i].name + '.');
 				//console.log(playerUnitArray[i].defense, ' remaining defense');
-	//			this.battle();
-				// add another if here to catch not attacking?
-				
-				// maybe move this if statement? up? what does this statement do? Where should it go?
-				}//}
+
+				}
 			} else if (Math.random() > this.accuracy) {
 				console.log('The ' + this.name + ' missed! Your unit unleashes a counterattack!');
-				return playerUnitArray[0].battle();
+				playerUnitArray[0].battle();
 				
 			}
-// math.random to check for hit - spacebattle
 
-// return true so other object knows if itself was hit
 
 // if attack >= defense, remove other div from dom and give reward
 // if attack < defense, adjust targets defense if still alive after taking damage
@@ -103,15 +105,21 @@ console.log('works');
 				cpuUnitArray[0].defense -= this.attack;
 				console.log('Your ' + this.name + ' hits the ' + cpuUnitArray[0].name + ".");
 				if (cpuUnitArray[0].defense > 0) { // try i
-					console.log('The ' + cpuUnitArray[0].name, ' survives and strikes back!');
-					return cpuUnitArray[0].battle();// changed from i
 					
+					cpuUnitArray[0].battle();// changed from i
+					console.log('The ' + cpuUnitArray[0].name, ' survives and strikes back!');
 				}
 				//console.log(cpuUnitArray[i].defense, ' remaining defense');
 				else if (cpuUnitArray[0].defense <= 0) {
-					console.log('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
+					
 					cpuUnitArray.shift();
 					checkPlayerRoundWin();
+					console.log('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
+					if (checkPlayerRoundWin() === false) {
+						playerUnitArray[0].battle();
+					} 
+					// if checkplayerround win = false, do another attack????
+
 					//this.battle();//try 0 here // maybe shouldn't run here but instean in checkWin
 
 					//this would be where you add gold for defeating enemy
@@ -122,7 +130,7 @@ console.log('works');
 				
 			} else if (Math.random() > this.accuracy){
 				console.log('The ' + this.name + ' missed! Your opponent unleashes a counterattack!');
-				return cpuUnitArray[0].battle(); // changed from i
+				cpuUnitArray[0].battle(); // changed from i
 				
 			}
 		// 	USS_Schwarzenegger.hull -= this.firepower;
@@ -164,8 +172,8 @@ console.log('works');
 			// gameObject.marketMaker();
 			//return playerCastle.life -= lifeDamageToPlayer;
 		} 
-		else {
-			cpuUnitArray[0].battle();
+		else if (playerUnitArray.length > 0) {
+			return false;
 		}
 	};
 
@@ -189,8 +197,8 @@ console.log('works');
 			//gameObject.cpuBuyUnits();
 			// gameObject.marketMaker();
 			//return cpuCastle.life -= lifeDamageToCpu;
-		} else {
-			playerUnitArray[0].battle();
+		} else if (cpuUnitArray.length > 0) {
+			return false;
 		}
 	};
 
@@ -263,13 +271,14 @@ console.log('works');
 		},
 		newRound () {
 			console.log('new round');
-			cpuUnitArray = [];
-			playerUnitArray = [];
+			
 			// $('.good-guy').remove();
 			$('.bad-guy').remove();
 			$('#round').text('Round ' + round);
 			switch (round) {
 			case 1:
+			cpuUnitArray = [];
+			playerUnitArray = [];
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 30;
 			playerCastle.gold = 30;
@@ -298,22 +307,22 @@ console.log('works');
 				if (cpuBoughtUnits[i] !== null) {
 				switch (cpuBoughtUnits[i].name) {
 					case "goblin":
-					$("#battlefield").append($('<div id ="goblin" class="bad-guy"> </div>'));
+					$("#battlefield").prepend($('<div id ="goblin" class="bad-guy"> </div>'));
 					break;
 					case "orc":
-					$("#battlefield").append($('<div id ="orc" class="bad-guy"> </div>'));
+					$("#battlefield").prepend($('<div id ="orc" class="bad-guy"> </div>'));
 					break;
 					case "lich":
-					$("#battlefield").append($('<div id ="lich" class="bad-guy"> </div>'));
+					$("#battlefield").prepend($('<div id ="lich" class="bad-guy"> </div>'));
 					break;
 						case "zombie":
-					$("#battlefield").append($('<div id ="zombie" class="bad-guy"> </div>'));
+					$("#battlefield").prepend($('<div id ="zombie" class="bad-guy"> </div>'));
 					break;
 					case "minion":
-					$("#battlefield").append($('<div id ="minion" class="bad-guy"> </div>'));
+					$("#battlefield").prepend($('<div id ="minion" class="bad-guy"> </div>'));
 					break;
 					case "medusa":
-					$("#battlefield").append($('<div id ="medusa" class="bad-guy"> </div>'));
+					$("#battlefield").prepend($('<div id ="medusa" class="bad-guy"> </div>'));
 					break;
 				}
 				}	
