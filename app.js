@@ -7,6 +7,21 @@ console.log('works');
 
 //	GLOBAL VARIABLES
 
+		const cpuCastle = {
+		life: 10,
+		gold: 0,
+		totalOffense: 0,
+		totalDefense: 0
+	};
+
+	const playerCastle = {
+		life: 10,
+		gold: 30,
+		totalOffense: 0,
+		totalDefense: 0
+	};
+
+
 	let round = 1;
 	let playerUnitArray = [];
 
@@ -14,6 +29,39 @@ console.log('works');
 	let cpuUnitArray = [];
 
 	const checkRoundStatus = () => {
+		 let playerLife = $('<div>').attr('id', 'playerLife').text(playerCastle.life);
+	let cpuLife = $('<div>').attr('id', 'cpuLife').text(cpuCastle.life);
+		let lifeDamageToCpu;
+		let lifeDamageToPlayer;
+		if (cpuUnitArray.length === 0){
+			for (var i = 0; i < playerUnitArray.length; i++) {
+			lifeDamageToCpu += playerUnitArray[i].offense; 
+
+			}
+			cpuCastle.life -= lifeDamageToCpu;
+			$('#computerLife').text(cpuCastle.life - lifeDamageToCpu);
+			
+			round++;
+			gameObject.newRound();
+			gameObject.cpuBuyUnits();
+			// gameObject.marketMaker();
+			return cpuCastle.life -= lifeDamageToCpu;
+		}
+		else if (playerUnitArray.length === 0) {
+			for (let i = 0; i < cpuUnitArray.length; i++) {
+			lifeDamageToPlayer += cpuUnitArray[i].offense; 
+		}
+		playerCastle.life -= lifeDamageToPlayer;
+		$('#playerLife').text(playerCastle.life - lifeDamageToPlayer);
+					round++;
+					console.log(playerCastle.life); // returning NaN
+			gameObject.newRound();
+			gameObject.cpuBuyUnits();
+			// gameObject.marketMaker();
+			return playerCastle.life -= lifeDamageToPlayer;
+		} 
+
+		// return playerCastle.life- lifeDamageToPlayer;
 
 	};
 
@@ -36,15 +84,18 @@ console.log('works');
 				playerUnitArray[i].defense -= this.attack;
 				console.log('The ' + cpuUnitArray[0].name + ' hit your ' + playerUnitArray[i].name + '.');
 				console.log(playerUnitArray[i].defense, ' remaining defense');
+				// add another if here to catch not attacking?
 				if (playerUnitArray[i].defense <= 0) {
-					console.log('Your ' + playerUnitArray[i].name + ' was defeated by a ' + this.name + '. Stand your ground!');
+					console.log('Your ' + playerUnitArray[i].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
 					playerUnitArray.shift();
-					//check for no enemies left
-					this.battle();
-				}	
+					checkRoundStatus();
 				if (playerUnitArray[i].defense > 0) {
 					playerUnitArray[i].battle();
 				}
+					//this.battle();
+				}	
+				// maybe move this if statement?
+				
 			} else if (Math.random() > this.accuracy) {
 				console.log('The ' + this.name + ' missed! Your unit unleashes a counterattack!');
 				playerUnitArray[i].battle();
@@ -71,23 +122,26 @@ console.log('works');
 				console.log('Your ' + playerUnitArray[0].name + ' attacks!');
 			for (let i = 0; i < cpuUnitArray.length; i++) {	
 			if (Math.random() <= this.accuracy) {
-				console.log('Your ' + playerUnitArray[i].name + ' hits the ' + cpuUnitArray[i].name + ".");
+				console.log('Your ' + playerUnitArray[0].name + ' hits the ' + cpuUnitArray[i].name + ".");
 				cpuUnitArray[i].defense -= this.attack;
 				console.log(cpuUnitArray[i].defense, ' remaining defense');
 				if (cpuUnitArray[i].defense <= 0) {
-					console.log('Your ' + playerUnitArray[i].name + ' defeated a ' + cpuUnitArray[i].name + '. Praise baby Jesus!');
+					console.log('Your ' + playerUnitArray[0].name + ' defeated a ' + cpuUnitArray[i].name + '. Praise baby Jesus!');
 					cpuUnitArray.shift();
-					this.battle();
+					checkRoundStatus();
+					cpuUnitArray[0].battle();//try 0 here
+
 					//this would be where you add gold for defeating enemy
 					// check for round end (no enemies left)
 					// tell this unit to attack again -> ? this.battle();
 				}	
-				if (cpuUnitArray[i].defense > 0) {
-					cpuUnitArray[i].battle();
+				//this line causing errors
+				if (cpuUnitArray[0].defense > 0) { // try i
+					cpuUnitArray[0].battle();// changed from i
 				}
 			} else if (Math.random() > this.accuracy){
 				console.log('The ' + this.name + ' missed! Your opponent unleashes a counterattack!');
-				cpuUnitArray[i].battle();
+				cpuUnitArray[0].battle(); // changed from i
 			}
 		// 	USS_Schwarzenegger.hull -= this.firepower;
 		// 	if (USS_Schwarzenegger.hull <= 0) {
@@ -160,19 +214,7 @@ console.log('works');
 
 // COMPUTER AND PLAYER OBJECTS
 
-	const cpuCastle = {
-		life: 10,
-		gold: 0,
-		totalOffense: 0,
-		totalDefense: 0
-	};
 
-	const playerCastle = {
-		life: 10,
-		gold: 30,
-		totalOffense: 0,
-		totalDefense: 0
-	};
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -184,7 +226,8 @@ console.log('works');
 			// const makeWarrior = $('<div/>').attr('id', 'knight');
 		},
 		newRound () {
-			$('.good-guy').remove();
+			console.log('new round');
+			// $('.good-guy').remove();
 			$('.bad-guy').remove();
 			$('#round').text('Round ' + round);
 			switch (round) {
@@ -192,14 +235,19 @@ console.log('works');
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 30;
 			playerCastle.gold = 30;
+			console.log(round + ' - Round');
 			break;
 			case 2:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 50;
+			playerCastle.gold = 50;
+			console.log(round + ' - Round');
 			break;
 			case 3:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 70;
+			playerCastle.gold = 70;
+			console.log(round + ' - Round');
 			break;
 		}
 		},
@@ -209,22 +257,22 @@ console.log('works');
 				if (cpuBoughtUnits[i] !== null) {
 				switch (cpuBoughtUnits[i].name) {
 					case "goblin":
-					$("#battlefield").append($('<div id ="goblin"> </div>'));
+					$("#battlefield").append($('<div id ="goblin" class="bad-guy"> </div>'));
 					break;
 					case "orc":
-					$("#battlefield").append($('<div id ="orc"> </div>'));
+					$("#battlefield").append($('<div id ="orc" class="bad-guy"> </div>'));
 					break;
 					case "lich":
-					$("#battlefield").append($('<div id ="lich"> </div>'));
+					$("#battlefield").append($('<div id ="lich" class="bad-guy"> </div>'));
 					break;
 						case "zombie":
-					$("#battlefield").append($('<div id ="zombie"> </div>'));
+					$("#battlefield").append($('<div id ="zombie" class="bad-guy"> </div>'));
 					break;
 					case "minion":
-					$("#battlefield").append($('<div id ="minion"> </div>'));
+					$("#battlefield").append($('<div id ="minion" class="bad-guy"> </div>'));
 					break;
 					case "medusa":
-					$("#battlefield").append($('<div id ="medusa"> </div>'));
+					$("#battlefield").append($('<div id ="medusa" class="bad-guy"> </div>'));
 					break;
 				}
 				}	
@@ -301,7 +349,7 @@ console.log('works');
 					alert("You don't have enough gold to buy any warriors.");
 				} else if (playerCastle.gold >= 5) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 5));
-					$('#battlefield').append($('<div>').attr('id', 'knight'));
+					$('#battlefield').append($('<div>').attr('id', 'knight').addClass('good-guy'));
 					playerUnitArray.push(soldier);
 				}
 			});
@@ -311,7 +359,7 @@ console.log('works');
 					alert("You don't have enough gold to buy a mage.");
 				} else if (playerCastle.gold >= 20) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 20));
-					$('#battlefield').append($('<div>').attr('id', 'wizard'));
+					$('#battlefield').append($('<div>').attr('id', 'wizard').addClass('good-guy'));
 					playerUnitArray.push(knight);
 				}
 			});
@@ -321,7 +369,7 @@ console.log('works');
 					alert("You don't have enough gold to buy a wizard.");
 				} else if (playerCastle.gold >= 30) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 30));
-					$('#battlefield').append($('<div>').attr('id', 'mage'));
+					$('#battlefield').append($('<div>').attr('id', 'mage').addClass('good-guy'));
 					playerUnitArray.push(wizard);
 				}
 
@@ -333,7 +381,7 @@ console.log('works');
 					alert("You don't have enough gold to buy any guards.");
 				} else if (playerCastle.gold >= 5) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 5));
-					$('#battlefield').append($('<div>').attr('id', 'baby'));
+					$('#battlefield').append($('<div>').attr('id', 'baby').addClass('good-guy'));
 					playerUnitArray.push(dwarf);
 				}
 			});
@@ -343,7 +391,7 @@ console.log('works');
 					alert("You don't have enough gold to buy a druid.");
 				} else if (playerCastle.gold >= 20) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 20));
-					$('#battlefield').append($('<div>').attr('id', 'dwarf'));
+					$('#battlefield').append($('<div>').attr('id', 'dwarf').addClass('good-guy'));
 					playerUnitArray.push(elephant);
 				}
 			});
@@ -353,7 +401,7 @@ console.log('works');
 					alert("You don't have enough gold to buy a knight.");
 				} else if (playerCastle.gold >= 30) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 30));
-					$('#battlefield').append($('<div>').attr('id', 'hero'));
+					$('#battlefield').append($('<div>').attr('id', 'hero').addClass('good-guy'));
 					playerUnitArray.push(ent);
 					console.log(playerUnitArray);
 				}
