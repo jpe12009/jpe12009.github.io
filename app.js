@@ -145,6 +145,7 @@ console.log('works');
 
 
 	const checkCpuRoundWin = () => {
+		playerCastle.life = 10;
 		const playerLife = $('<div>').attr('id', 'playerLife');
 		let lifeDamageToPlayer;
 
@@ -448,14 +449,15 @@ console.log('works');
 		
 				$('#exitShop').on('click', (e) => {
 					$('#outer').children().remove();
-					cpuUnitArray = cpuBoughtUnits.filter((n) => {
+					$('#exitShop').remove();
+					cpuUnitArray = cpuBoughtUnits.filter((n, i) => {
 						return n != null;
 					});
-					$('#exitShop').remove();
-					
+
 					console.log(cpuUnitArray);
 					console.log(playerUnitArray);
 					playerUnitArray[0].battle(); // what is this for? starting battle after market
+					return cpuUnitArray;
 			});
 		},
 
