@@ -132,6 +132,17 @@
 	display: inline-block;
 	width:60px;
 }
+#playerLife{
+	float: left;
+	display: inline-block;
+	width: 60px;
+}
+
+#computerLife {
+	float: right;
+	display: inline-block;
+	width:60px;
+}
 
 /*button {
 	float: left;

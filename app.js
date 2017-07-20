@@ -28,46 +28,6 @@ console.log('works');
 	let cpuBoughtUnits = [];
 	let cpuUnitArray = [];
 
-	const checkRoundStatus = () => {
-		 let playerLife = $('<div>').attr('id', 'playerLife').text(playerCastle.life);
-	let cpuLife = $('<div>').attr('id', 'cpuLife').text(cpuCastle.life);
-		let lifeDamageToCpu;
-		let lifeDamageToPlayer;
-		if (cpuUnitArray.length === 0){
-			for (var i = 0; i < playerUnitArray.length; i++) {
-			lifeDamageToCpu += playerUnitArray[i].offense; 
-
-			}
-			cpuCastle.life -= lifeDamageToCpu;
-			$('#computerLife').text(cpuCastle.life - lifeDamageToCpu);
-			
-			round++;
-			gameObject.newRound();
-			//gameObject.cpuBuyUnits();
-			// gameObject.marketMaker();	
-
-			return cpuCastle.life -= lifeDamageToCpu;
-		}
-
-		//separating this into two functions might help
-		else if (playerUnitArray.length === 0) {
-			for (let i = 0; i < cpuUnitArray.length; i++) {
-			lifeDamageToPlayer += cpuUnitArray[i].offense; 
-		}
-		playerCastle.life -= lifeDamageToPlayer;
-		$('#playerLife').text(playerCastle.life - lifeDamageToPlayer);
-					round++;
-					console.log(playerCastle.life); // returning NaN
-			gameObject.newRound();
-			//gameObject.cpuBuyUnits();
-			// gameObject.marketMaker();
-			return playerCastle.life -= lifeDamageToPlayer;
-		} 
-
-		// return playerCastle.life- lifeDamageToPlayer;
-
-	};
-
 //--------------------------------------------------------------------------------------------------------
 
 //	COMPUTER AND PLAYER CLASSES
@@ -91,29 +51,30 @@ console.log('works');
 			for (let i = 0; i < playerUnitArray.length; i++) {
 
 			if (Math.random() <= this.accuracy) {
-				if (playerUnitArray[i].defense <= 0) {
-					playerUnitArray[i].defense -= this.attack;
-					if (playerUnitArray[i].defense > 0) {
-						playerUnitArray[i].battle();
+				playerUnitArray[0].defense -= this.attack;
+				console.log('Your ' + playerUnitArray[0].name + ' was hit by a ' + this.name);
+				if (playerUnitArray[0].defense > 0) {
+						console.log('Your ' + playerUnitArray[0].name + ' survives and strikes back!');
+						return playerUnitArray[0].battle();
 					}
-
-
-					console.log('Your ' + playerUnitArray[i].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
+					else if (playerUnitArray[0].defense <= 0) {
+					console.log('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
 					playerUnitArray.shift();
-					checkRoundStatus();// check for cpu round end life damage
-				}	else
+					checkCpuRoundWin();// check for cpu round end life damage
+	//			}	else
 				//playerUnitArray[i].defense -= this.attack;
 				
 				//console.log('The ' + this.name + ' hit your ' + playerUnitArray[i].name + '.');
 				//console.log(playerUnitArray[i].defense, ' remaining defense');
-				this.battle();
+	//			this.battle();
 				// add another if here to catch not attacking?
 				
 				// maybe move this if statement? up? what does this statement do? Where should it go?
-				
+				}//}
 			} else if (Math.random() > this.accuracy) {
 				console.log('The ' + this.name + ' missed! Your unit unleashes a counterattack!');
-				playerUnitArray[i].battle();
+				return playerUnitArray[0].battle();
+				
 			}
 // math.random to check for hit - spacebattle
 
@@ -121,6 +82,7 @@ console.log('works');
 
 // if attack >= defense, remove other div from dom and give reward
 // if attack < defense, adjust targets defense if still alive after taking damage
+			
 			}
 		}
 	}
@@ -134,20 +96,23 @@ console.log('works');
 			this.cost = cost; 
 		}
 		battle () {
-				console.log('Your ' + this.name + ' attacks!');
+				
 			for (let i = 0; i < cpuUnitArray.length; i++) {	
 			if (Math.random() <= this.accuracy) {
-				console.log('Your ' + this.name + ' hits the ' + cpuUnitArray[i].name + ".");
-				cpuUnitArray[i].defense -= this.attack;
-				if (cpuUnitArray[i].defense > 0) { // try i
-					cpuUnitArray[i].battle();// changed from i
+				
+				cpuUnitArray[0].defense -= this.attack;
+				console.log('Your ' + this.name + ' hits the ' + cpuUnitArray[0].name + ".");
+				if (cpuUnitArray[0].defense > 0) { // try i
+					console.log('The ' + cpuUnitArray[0].name, ' survives and strikes back!');
+					return cpuUnitArray[0].battle();// changed from i
+					
 				}
 				//console.log(cpuUnitArray[i].defense, ' remaining defense');
-				if (cpuUnitArray[i].defense <= 0) {
-					console.log('Your ' + this.name + ' defeated a ' + cpuUnitArray[i].name + '. Praise baby Jesus!');
+				else if (cpuUnitArray[0].defense <= 0) {
+					console.log('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
 					cpuUnitArray.shift();
-					checkRoundStatus();
-					this.battle();//try 0 here
+					checkPlayerRoundWin();
+					//this.battle();//try 0 here // maybe shouldn't run here but instean in checkWin
 
 					//this would be where you add gold for defeating enemy
 					// check for round end (no enemies left)
@@ -157,7 +122,8 @@ console.log('works');
 				
 			} else if (Math.random() > this.accuracy){
 				console.log('The ' + this.name + ' missed! Your opponent unleashes a counterattack!');
-				cpuUnitArray[i].battle(); // changed from i
+				return cpuUnitArray[0].battle(); // changed from i
+				
 			}
 		// 	USS_Schwarzenegger.hull -= this.firepower;
 		// 	if (USS_Schwarzenegger.hull <= 0) {
@@ -175,6 +141,59 @@ console.log('works');
 		}
 	}
 //--------------------------------------------------------------------------------------------------------
+
+
+
+	const checkCpuRoundWin = () => {
+		const playerLife = $('<div>').attr('id', 'playerLife');
+		let lifeDamageToPlayer;
+
+		if (playerUnitArray.length === 0) {
+			for (let i = 0; i < cpuUnitArray.length; i++) {
+			lifeDamageToPlayer += cpuUnitArray[i].offense; 
+		}
+		playerCastle.life -= lifeDamageToPlayer;
+		playerLife.text(playerCastle.life - lifeDamageToPlayer);
+
+		$('#round').append(playerLife);
+					round++;
+					console.log(playerCastle.life); // returning NaN
+			gameObject.newRound();
+			//gameObject.cpuBuyUnits();
+			// gameObject.marketMaker();
+			//return playerCastle.life -= lifeDamageToPlayer;
+		} 
+		else {
+			cpuUnitArray[0].battle();
+		}
+	};
+
+	const checkPlayerRoundWin = () => {
+		cpuCastle.life = 10; // just testing to not get NaN
+		const cpuLife = $('<div>').attr('id', 'computerLife');
+		let lifeDamageToCpu;
+
+		if (cpuUnitArray.length === 0){
+			for (let i = 0; i < playerUnitArray.length; i++) {
+			lifeDamageToCpu += playerUnitArray[i].offense;
+			}
+			cpuCastle.life -= lifeDamageToCpu;
+			cpuLife.text(cpuCastle.life - lifeDamageToCpu);
+
+			$('#gold').append(cpuLife);
+		// append life div
+			round++;
+			console.log(cpuCastle.life);
+			gameObject.newRound();
+			//gameObject.cpuBuyUnits();
+			// gameObject.marketMaker();
+			//return cpuCastle.life -= lifeDamageToCpu;
+		} else {
+			playerUnitArray[0].battle();
+		}
+	};
+
+
 
 //	UNITS - CPU OFFENSE
 
@@ -246,13 +265,14 @@ console.log('works');
 			cpuUnitArray = [];
 			playerUnitArray = [];
 			// $('.good-guy').remove();
-			// $('.bad-guy').remove();
+			$('.bad-guy').remove();
 			$('#round').text('Round ' + round);
 			switch (round) {
 			case 1:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 30;
 			playerCastle.gold = 30;
+			gameObject.cpuBuyUnits();
 			console.log('Round ' + round);
 			break;
 			case 2:
@@ -260,13 +280,14 @@ console.log('works');
 			cpuCastle.gold = 50;
 			playerCastle.gold = 50;
 			console.log('Round ' + round);
-
+			gameObject.cpuBuyUnits(); //added buy units
 			break;
 			case 3:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 70;
 			playerCastle.gold = 70;
 			console.log('Round ' + round);
+			//gameObject.cpuBuyUnits(); //added buy units
 			break;
 		}
 		},
@@ -427,8 +448,8 @@ console.log('works');
 		
 				$('#exitShop').on('click', (e) => {
 					$('#outer').children().remove();
-					cpuUnitArray = cpuBoughtUnits.filter(function(n) {
-						return n != undefined;
+					cpuUnitArray = cpuBoughtUnits.filter((n) => {
+						return n != null;
 					});
 					$('#exitShop').remove();
 					
@@ -491,6 +512,5 @@ $('#market').on('click', (e) => {
 });
 
 gameObject.newRound();
-gameObject.cpuBuyUnits();
 
 });
