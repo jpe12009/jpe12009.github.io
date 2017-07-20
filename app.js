@@ -43,10 +43,13 @@ console.log('works');
 			
 			round++;
 			gameObject.newRound();
-			gameObject.cpuBuyUnits();
-			// gameObject.marketMaker();
+			//gameObject.cpuBuyUnits();
+			// gameObject.marketMaker();	
+
 			return cpuCastle.life -= lifeDamageToCpu;
 		}
+
+		//separating this into two functions might help
 		else if (playerUnitArray.length === 0) {
 			for (let i = 0; i < cpuUnitArray.length; i++) {
 			lifeDamageToPlayer += cpuUnitArray[i].offense; 
@@ -56,7 +59,7 @@ console.log('works');
 					round++;
 					console.log(playerCastle.life); // returning NaN
 			gameObject.newRound();
-			gameObject.cpuBuyUnits();
+			//gameObject.cpuBuyUnits();
 			// gameObject.marketMaker();
 			return playerCastle.life -= lifeDamageToPlayer;
 		} 
@@ -78,23 +81,35 @@ console.log('works');
 			this.reward = reward;
 		}
 		battle () {
-			console.log('The ' + cpuUnitArray[0].name + ' attacks!');
-			for (let i = 0; i < playerUnitArray.length; i++) {	
+			
+
+		//	lines 84 through 102 need help
+			// check your logic! Begin addeding functions that remove destroyed units
+			// push destroyed units into new array
+
+
+			for (let i = 0; i < playerUnitArray.length; i++) {
+
 			if (Math.random() <= this.accuracy) {
-				playerUnitArray[i].defense -= this.attack;
-				console.log('The ' + cpuUnitArray[0].name + ' hit your ' + playerUnitArray[i].name + '.');
-				console.log(playerUnitArray[i].defense, ' remaining defense');
-				// add another if here to catch not attacking?
 				if (playerUnitArray[i].defense <= 0) {
+					playerUnitArray[i].defense -= this.attack;
+					if (playerUnitArray[i].defense > 0) {
+						playerUnitArray[i].battle();
+					}
+
+
 					console.log('Your ' + playerUnitArray[i].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
 					playerUnitArray.shift();
-					checkRoundStatus();
-				if (playerUnitArray[i].defense > 0) {
-					playerUnitArray[i].battle();
-				}
-					//this.battle();
-				}	
-				// maybe move this if statement?
+					checkRoundStatus();// check for cpu round end life damage
+				}	else
+				//playerUnitArray[i].defense -= this.attack;
+				
+				//console.log('The ' + this.name + ' hit your ' + playerUnitArray[i].name + '.');
+				//console.log(playerUnitArray[i].defense, ' remaining defense');
+				this.battle();
+				// add another if here to catch not attacking?
+				
+				// maybe move this if statement? up? what does this statement do? Where should it go?
 				
 			} else if (Math.random() > this.accuracy) {
 				console.log('The ' + this.name + ' missed! Your unit unleashes a counterattack!');
@@ -119,29 +134,30 @@ console.log('works');
 			this.cost = cost; 
 		}
 		battle () {
-				console.log('Your ' + playerUnitArray[0].name + ' attacks!');
+				console.log('Your ' + this.name + ' attacks!');
 			for (let i = 0; i < cpuUnitArray.length; i++) {	
 			if (Math.random() <= this.accuracy) {
-				console.log('Your ' + playerUnitArray[0].name + ' hits the ' + cpuUnitArray[i].name + ".");
+				console.log('Your ' + this.name + ' hits the ' + cpuUnitArray[i].name + ".");
 				cpuUnitArray[i].defense -= this.attack;
-				console.log(cpuUnitArray[i].defense, ' remaining defense');
+				if (cpuUnitArray[i].defense > 0) { // try i
+					cpuUnitArray[i].battle();// changed from i
+				}
+				//console.log(cpuUnitArray[i].defense, ' remaining defense');
 				if (cpuUnitArray[i].defense <= 0) {
-					console.log('Your ' + playerUnitArray[0].name + ' defeated a ' + cpuUnitArray[i].name + '. Praise baby Jesus!');
+					console.log('Your ' + this.name + ' defeated a ' + cpuUnitArray[i].name + '. Praise baby Jesus!');
 					cpuUnitArray.shift();
 					checkRoundStatus();
-					cpuUnitArray[0].battle();//try 0 here
+					this.battle();//try 0 here
 
 					//this would be where you add gold for defeating enemy
 					// check for round end (no enemies left)
 					// tell this unit to attack again -> ? this.battle();
 				}	
 				//this line causing errors
-				if (cpuUnitArray[0].defense > 0) { // try i
-					cpuUnitArray[0].battle();// changed from i
-				}
+				
 			} else if (Math.random() > this.accuracy){
 				console.log('The ' + this.name + ' missed! Your opponent unleashes a counterattack!');
-				cpuUnitArray[0].battle(); // changed from i
+				cpuUnitArray[i].battle(); // changed from i
 			}
 		// 	USS_Schwarzenegger.hull -= this.firepower;
 		// 	if (USS_Schwarzenegger.hull <= 0) {
@@ -213,7 +229,7 @@ console.log('works');
 //--------------------------------------------------------------------------------------------------------
 
 // COMPUTER AND PLAYER OBJECTS
-
+// move to top
 
 
 //--------------------------------------------------------------------------------------------------------
@@ -227,27 +243,30 @@ console.log('works');
 		},
 		newRound () {
 			console.log('new round');
+			cpuUnitArray = [];
+			playerUnitArray = [];
 			// $('.good-guy').remove();
-			$('.bad-guy').remove();
+			// $('.bad-guy').remove();
 			$('#round').text('Round ' + round);
 			switch (round) {
 			case 1:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 30;
 			playerCastle.gold = 30;
-			console.log(round + ' - Round');
+			console.log('Round ' + round);
 			break;
 			case 2:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 50;
 			playerCastle.gold = 50;
-			console.log(round + ' - Round');
+			console.log('Round ' + round);
+
 			break;
 			case 3:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 70;
 			playerCastle.gold = 70;
-			console.log(round + ' - Round');
+			console.log('Round ' + round);
 			break;
 		}
 		},
@@ -322,7 +341,6 @@ console.log('works');
 			// bug where random number returns undefined into array if unit can't be afforded
 				}
 				// console.log(cpuBoughtUnits);
-				console.log(cpuCastle.gold);
 			
 				gameObject.appendCpuUnits(cpuBoughtUnits);
 			
@@ -416,7 +434,7 @@ console.log('works');
 					
 					console.log(cpuUnitArray);
 					console.log(playerUnitArray);
-					playerUnitArray[0].battle();
+					playerUnitArray[0].battle(); // what is this for? starting battle after market
 			});
 		},
 
