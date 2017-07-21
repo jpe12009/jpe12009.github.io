@@ -32,6 +32,7 @@ console.log('works');
 	let cpuUnitArray = [];
 
 	let defeatedEnemies = [];
+	let defeatedHeros = [];
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -53,24 +54,32 @@ console.log('works');
 			// push destroyed units into new array
 
 
-			for (let i = 0; i < playerUnitArray.length; i++) {
+			//for (let i = 0; i < playerUnitArray.length; i++) {
 
 			if (Math.random() <= this.accuracy) {
 				playerUnitArray[0].defense -= this.attack;
+				$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was hit by a ' + this.name);
 				console.log('Your ' + playerUnitArray[0].name + ' was hit by a ' + this.name);
 				if (playerUnitArray[0].defense > 0) {
 						
 						playerUnitArray[0].battle();
+						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' survives and strikes back!');
 						console.log('Your ' + playerUnitArray[0].name + ' survives and strikes back!');
 						playerUnitArray[0].battle();
 					}
 					else if (playerUnitArray[0].defense <= 0) {
+						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
 						console.log('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
+					defeatedHeros.push(playerUnitArray[0]);
+					$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
+					gameObject.removeFromPlayerBattlefield();
+					defeatedHeros.pop();
 					playerUnitArray.shift();
 					checkCpuRoundWin();
 					
 					if (checkCpuRoundWin() === false) {
-						cpuUnitArray[0].battle();
+						$('#battle').remove();
+						gameObject.createBattleButtonCpu();
 					} 
 
 				// if checkplayerround win = false, do another attack????
@@ -89,7 +98,7 @@ console.log('works');
 // if attack >= defense, remove other div from dom and give reward
 // if attack < defense, adjust targets defense if still alive after taking damage
 			
-			}
+		//	}
 		}
 	}
 
@@ -103,27 +112,35 @@ console.log('works');
 		}
 		battle () {
 				
-			for (let i = 0; i < cpuUnitArray.length; i++) {	
+			//for (let i = 0; i < cpuUnitArray.length; i++) {	
+					
 			if (Math.random() <= this.accuracy) {
-				
+								
 				cpuUnitArray[0].defense -= this.attack;
+				$('#battle-message').html('Your ' + this.name + ' hits the ' + cpuUnitArray[0].name + ".");
 				console.log('Your ' + this.name + ' hits the ' + cpuUnitArray[0].name + ".");
 				if (cpuUnitArray[0].defense > 0) { // try i
 					
 					cpuUnitArray[0].battle();// changed from i
-					console.log('The ' + cpuUnitArray[0].name, ' survives and strikes back!');
+					$('#battle-message').html('The ' + cpuUnitArray[0].name + ' survives and strikes back!');
+					console.log('The ' + cpuUnitArray[0].name + ' survives and strikes back!');
 					cpuUnitArray[0].battle();
 				}
 				//console.log(cpuUnitArray[i].defense, ' remaining defense');
 				else if (cpuUnitArray[0].defense <= 0) {
 					defeatedEnemies.push(cpuUnitArray[0]);
+					$('#battle-message').html('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
+					//alert('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
+					gameObject.removeFromCpuBattlefield();
+					defeatedEnemies.pop();
+					$('#battle-message').html('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
 					console.log('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
 					cpuUnitArray.shift();
 					checkPlayerRoundWin();
 					
-					if (checkPlayerRoundWin() === false) {
-						playerUnitArray[0].battle();
-					} 
+					// if (checkPlayerRoundWin() === false) {
+					// 	playerUnitArray[0].battle();
+					// } 
 					// if checkplayerround win = false, do another attack????
 
 					//this.battle();//try 0 here // maybe shouldn't run here but instean in checkWin
@@ -135,8 +152,11 @@ console.log('works');
 				//this line causing errors
 				
 			} else if (Math.random() > this.accuracy){
+				$('#battle-message').html('The ' + this.name + ' missed! Your opponent unleashes a counterattack!');
 				console.log('The ' + this.name + ' missed! Your opponent unleashes a counterattack!');
-				cpuUnitArray[0].battle(); // changed from i
+				//return cpuUnitArray[0].battle(); // changed from i
+				$('#battle').remove();
+				gameObject.createBattleButtonCpu();
 				
 			}
 		// 	USS_Schwarzenegger.hull -= this.firepower;
@@ -151,7 +171,7 @@ console.log('works');
 		// 	alert('The alien ship missed you!');
 		// 	USS_Schwarzenegger.attack();
 		// }
-			}
+			//}
 		}
 	}
 //--------------------------------------------------------------------------------------------------------
@@ -163,6 +183,8 @@ console.log('works');
 		const playerLife = $('<div>');
 		playerLife.attr('id', 'playerLife');
 		let lifeDamageToPlayer;
+
+		console.log(cpuUnitArray);
 
 		if (playerUnitArray.length === 0) {
 			for (let i = 0; i < cpuUnitArray.length; i++) {
@@ -191,9 +213,11 @@ console.log('works');
 
 		let lifeDamageToCpu = 0;
 
+		console.log(playerUnitArray);
+
 		if (cpuUnitArray.length === 0){
 			for (let i = 0; i < playerUnitArray.length; i++) {
-			lifeDamageToCpu += playerUnitArray[i].offense;
+				lifeDamageToCpu += playerUnitArray[i].offense;
 			}
 			cpuCastle.life -= lifeDamageToCpu;
 			cpuLife.text(cpuCastle.life);
@@ -207,7 +231,8 @@ console.log('works');
 			// gameObject.marketMaker();
 			//return cpuCastle.life -= lifeDamageToCpu;
 		} else if (cpuUnitArray.length > 0) {
-			return false;
+			$('#battle').remove();
+			gameObject.createBattleButton();
 		}
 	};
 
@@ -282,8 +307,9 @@ console.log('works');
 			console.log('new round');
 			
 			// $('.good-guy').remove();
-			$('.bad-guy').remove();
+			//$('.bad-guy').remove();
 			$('#round').text('Round ' + round);
+
 			switch (round) {
 			case 1:
 			// cpuUnitArray = [];
@@ -294,19 +320,25 @@ console.log('works');
 			gameObject.cpuBuyUnits();
 			console.log('Round ' + round);
 			break;
+
+
 			case 2:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold += 50;
 			playerCastle.gold = 50;
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
 			break;
+
+
 			case 3:
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold += 70;
 			playerCastle.gold = 70;
 			console.log('Round ' + round);
-			//gameObject.cpuBuyUnits(); //added buy units
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
 			break;
 		}
 		},
@@ -369,6 +401,9 @@ console.log('works');
 			return null;
 		}
 	},
+
+// at the beginning of each round cpu gets a certain amount of gold
+// it randomly buys what it can until nothing else can be bought
 	// makes an array that has different units that can be randomly bought 
 // cycles through until until cpu gold = 0;
 		cpuBuyUnits () {
@@ -386,6 +421,58 @@ console.log('works');
 			
 				
 			} ,
+
+			createBattleButton () {
+					const battleButton = $('<button/>').text('Click here to attack with your units!').attr('id', 'battle');
+					$('.img-div').eq(0).append(battleButton);
+					battleButton.on('click', (e) => {
+							
+										//const fight = $('#battle').val();
+						
+						
+						playerUnitArray[0].battle();
+					//	$('#battle').remove();
+							
+
+					});
+
+				},
+
+				createBattleButtonCpu () {
+					const battleButton = $('<button/>').text('The enemies are attacking! Click here').attr('id', 'battle');
+					$('.img-div').eq(0).append(battleButton);
+					battleButton.on('click', (e) => {
+							
+										//const fight = $('#battle').val();
+						
+						
+						cpuUnitArray[0].battle();
+					//	$('#battle').remove();
+							
+
+					});
+
+				},
+
+			createMarketButton() {
+				const marketButton = $('<button/>').text('Market').attr('id', 'market');
+				marketButton.on('click', (e) => { 
+				$('button').remove();
+				console.log('button works');
+				gameObject.marketMaker();
+				});
+	
+
+				$('#battle-message').prepend(marketButton);
+
+			},
+
+
+// different buttons at the start of the round you can click to buy units
+// units are placed onto battlefield
+// on click run a function that checks gold and if enough, run append function,
+// otherwise alert you don't have enough and return to buying screen.
+// *** button that starts next round **** instead of jumping straight to battle
 
 		marketMaker (){
 			const bigHeroDiv = $('<div id="modal"><div id="outer"><div class="inner"><button type="submit" id ="Warrior"> Warrior - 5 Gold  </button></div><div class="inner"><button type="submit" id ="Mage"> Mage - 20 Gold</button></div>   <div class="inner"><button id ="Wizard"> Wizard - 30 Gold</button></div>        <div class="inner"><button type="submit" id ="Guard"> Guard - 5 Gold</button></div><div class="inner"><button type="submit" id ="Druid"> Druid - 20 Gold</button></div>     <div class="inner"><button id ="Knight"> Knight - 3O Gold</button></div></div><br></div>');
@@ -470,44 +557,79 @@ console.log('works');
 					$('#exitShop').remove();
 					cpuUnitArray = cpuBoughtUnits.filter((n, i) => {
 						return n != null;
+
 					});
 
 					console.log(cpuUnitArray);
 					console.log(playerUnitArray);
-					playerUnitArray[0].battle(); // what is this for? starting battle after market
+					//playerUnitArray[0].battle(); // what is this for? starting battle after market
+					// maker a button that starts the next round of battle
+					gameObject.createBattleButton();
 					return cpuUnitArray;
 			});
 		},
 
 				
-			checkEndRound () {	
-				// gameObject.marketMaker();
-		// 		let playerBoughtUnits = [];
-		// 		const goodGuyArray = [soldier, knight, wizard, dwarf, elephant, ent];
-		// 		// let buttonValue = $(e.currentTarget).attr('id');
-		// 		// let buttonValue2 = $('button').attr('id').val();
-		// 		for (var i = 0; i < goodGuyArray.length; i++) {
-		// 	if (goodGuyArray[i].name === '') {
-		// 		$('#battlefield').append($('<div id ="hero">'));
-		// 	}
-		// }
-			// console.log(buttonValue);
+			removeFromCpuBattlefield () {	
+			for (let i = 0; i < defeatedEnemies.length; i++) {
+				switch (defeatedEnemies[i].name) {
+					case "goblin":
+					$('#goblin').remove();
+					break;
+					case "orc":
+					$('#orc').remove();
+					break;
+					case "lich":
+					$('#lich').remove();
+					break;
+						case "zombie":
+					$('#zombie').remove();
+					break;
+					case "minion":
+					$('#minion').remove();
+					break;
+					case "medusa":
+					$('#medusa').remove();
+					break;
 				}
+			}
+			
+				},
+				removeFromPlayerBattlefield() {
+					for (let i = 0; i < defeatedHeros.length; i++) {
+						switch (defeatedHeros[i].name) {
+					case "warrior":
+					$('#knight').remove();
+					break;
+					case "mage":
+					$('#wizard').remove();
+					break;
+					case "wizard":
+					$('#mage').remove();
+					break;
+						case "guard":
+					$('#baby').remove();
+					break;
+					case "druid":
+					$('#dwarf').remove();
+					break;
+					case "knight":
+					$('#hero').remove();
+					break;
+				}
+					}
+				}
+				
 		};
 
-// div loop make the six buying divs, assign id's
 
-// on click run a function that checks gold and if enough, run append function,
-// otherwise alert you don't have enough and return to buying screen.
-// button that starts next round
 
-// at the beginning of each round cpu gets a certain amount of gold
-// it randomly buys what it can until nothing else can be bought
-// different buttons at the start of the round you can click to buy units
-// units are placed onto battlefield
 
+
+
+
+// STRETCH
 //player clicks a bunch until no more units remain.
-
 // who would you like to attack with? 
 // who would you like to attack?
 // go until no more units -- end of round
@@ -522,7 +644,6 @@ console.log('works');
 
 
 $('#market').on('click', (e) => { 
-	const input = $('button').val();
 	$('button').remove();
 	console.log('button works');
 	gameObject.marketMaker();

@@ -158,7 +158,7 @@
 #battlefield {
 
 	position: relative;
-	height: 150px;
+	height: 300px;
 	/*border: 2px solid red;*/
 	width: 100%;
 	/*bottom: 110px;*/
@@ -178,6 +178,12 @@
 
 #market {
  	width: 100%;
+
+ 	margin: 0px auto;
+}
+
+#battle {
+	width: 100%;
 }
 
 #battlefield p {
@@ -186,9 +192,30 @@
 
 }
 
+#battlefield2 {
+
+
+}
+
+.img-div2 {
+	background: url('http://3.bp.blogspot.com/-LefrPu9dtJs/URvSHwpTlkI/AAAAAAAAEYw/nkgcrtSiSSk/s1600/minecraft-castle-render.png') no-repeat center;
+	
+	height: 550px;
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#battle-message {
+	height: 100px;
+	width: 100%;
+	border: 1px solid black;
+	background-color: white;
+}
+
 img {
 	width: 80%;
-	height: 550px;
+	height: 500px;
 	margin: 0 auto;
 	display: block;
 	
