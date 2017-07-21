@@ -11,14 +11,14 @@ console.log('works');
 // global player+cpu unit arrays are being cleared by NewRound so they don't show in console logs
 
 		let cpuCastle = {
-		life: 10,
+		life: 50,
 		gold: 0,
 		totalOffense: 0,
 		totalDefense: 0
 	};
 
 	let playerCastle = {
-		life: 10,
+		life: 50,
 		gold: 30,
 		totalOffense: 0,
 		totalDefense: 0
@@ -62,10 +62,11 @@ console.log('works');
 				console.log('Your ' + playerUnitArray[0].name + ' was hit by a ' + this.name);
 				if (playerUnitArray[0].defense > 0) {
 						
-						playerUnitArray[0].battle();
+						//playerUnitArray[0].battle();
 						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' survives and strikes back!');
 						console.log('Your ' + playerUnitArray[0].name + ' survives and strikes back!');
-						playerUnitArray[0].battle();
+						$('#battle').remove();
+						gameObject.createBattleButton();
 					}
 					else if (playerUnitArray[0].defense <= 0) {
 						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was defeated by the ' + this.name + '. Stand your ground!');
@@ -89,6 +90,7 @@ console.log('works');
 
 				}
 			} else if (Math.random() > this.accuracy) {
+				$('#battle-message').html('The ' + this.name + ' missed! Your unit unleashes a counterattack!');
 				console.log('The ' + this.name + ' missed! Your unit unleashes a counterattack!');
 				$('#battle').remove();
 				gameObject.createBattleButton();
@@ -122,7 +124,7 @@ console.log('works');
 				console.log('Your ' + this.name + ' hits the ' + cpuUnitArray[0].name + ".");
 				if (cpuUnitArray[0].defense > 0) { // try i
 					
-					cpuUnitArray[0].battle();// changed from i
+					//cpuUnitArray[0].battle();// changed from i
 					$('#battle-message').html('The ' + cpuUnitArray[0].name + ' survives and strikes back!');
 					console.log('The ' + cpuUnitArray[0].name + ' survives and strikes back!');
 					$('#battle').remove();
@@ -184,20 +186,20 @@ console.log('works');
 		
 		const playerLife = $('<div>');
 		playerLife.attr('id', 'playerLife');
-		let lifeDamageToPlayer;
+		let lifeDamageToPlayer = 0;
 
 		console.log(cpuUnitArray);
 
 		if (playerUnitArray.length === 0) {
 			for (let i = 0; i < cpuUnitArray.length; i++) {
-			lifeDamageToPlayer += cpuUnitArray[i].offense; 
+			lifeDamageToPlayer += cpuUnitArray[i].attack; 
 		}
 		playerCastle.life -= lifeDamageToPlayer;
 		playerLife.text(playerCastle.life);
 
 		$('#round').append(playerLife);
 					round++;
-					console.log(playerCastle.life); // returning NaN
+					console.log(playerCastle.life, 'player life'); // returning NaN
 			gameObject.newRound();
 			//gameObject.cpuBuyUnits();
 			// gameObject.marketMaker();
@@ -219,7 +221,7 @@ console.log('works');
 
 		if (cpuUnitArray.length === 0){
 			for (let i = 0; i < playerUnitArray.length; i++) {
-				lifeDamageToCpu += playerUnitArray[i].offense;
+				lifeDamageToCpu += playerUnitArray[i].attack;
 			}
 			cpuCastle.life -= lifeDamageToCpu;
 			cpuLife.text(cpuCastle.life);
@@ -227,7 +229,7 @@ console.log('works');
 			$('#gold').append(cpuLife);
 		// append life div
 			round++;
-			console.log(cpuCastle.life);
+			console.log(cpuCastle.life, 'cpu life');
 			gameObject.newRound();
 			//gameObject.cpuBuyUnits();
 			// gameObject.marketMaker();
