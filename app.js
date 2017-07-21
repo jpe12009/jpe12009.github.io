@@ -430,7 +430,7 @@ console.log('works');
 			} ,
 
 			createBattleButton () {
-					const battleButton = $('<button/>').text('Click here to attack with your units!').attr('id', 'battle').addClass('playerBattles');
+					const battleButton = $('<button/>').text('Click here to attack with your units!').attr('id', 'battle');
 				//	$('.img-div').eq(0).append(battleButton);
 					$('#modal').append(battleButton);
 					battleButton.on('click', (e) => {
@@ -440,7 +440,7 @@ console.log('works');
 				},
 
 				createBattleButtonCpu () {
-					const battleButton = $('<button/>').text('The enemies are attacking! Click here').attr('id', 'battle').addClass('cpuBattles');
+					const battleButton = $('<button/>').text('The enemies are attacking! Click here').attr('id', 'battle');
 					$('.img-div').eq(0).append(battleButton);
 					battleButton.on('click', (e) => {
 							
