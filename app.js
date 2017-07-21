@@ -492,22 +492,50 @@ console.log('works');
 			$('#battlefield').append(bigHeroDiv).append(exitShop);
 
 
-			$('#Warrior').on('mouseover', () => { 
-				console.log('hovering');
-				$('#battle-message').html(soldier.name + ': attack: ' + soldier.attack + ' -- defense: ' + soldier.defense + ' -- accuracy: ' + soldier.accuracy);
-			});
+				  $('#Warrior').hover(function() {
+					$('#battle-message').html(soldier.name + ': attack: ' + soldier.attack + ' -- defense: ' + soldier.defense + ' -- accuracy: ' + soldier.accuracy);
+				}, function() {
+					$('#battle-message').html('');
+				});
 
+					$('#Mage').hover(function() {
+					$('#battle-message').html(knight.name + ': attack: ' + knight.attack + ' -- defense: ' + knight.defense + ' -- accuracy: ' + knight.accuracy);
+				}, function() {
+					$('#battle-message').html('');
+				});
 
+						$('#Wizard').hover(function() {
+					$('#battle-message').html(wizard.name + ': attack: ' + wizard.attack + ' -- defense: ' + wizard.defense + ' -- accuracy: ' + wizard.accuracy);
+				}, function() {
+					$('#battle-message').html('');
+				});
 
+							$('#Guard').hover(function() {
+					$('#battle-message').html(dwarf.name + ': attack: ' + dwarf.attack + ' -- defense: ' + dwarf.defense + ' -- accuracy: ' + dwarf.accuracy);
+				}, function() {
+					$('#battle-message').html('');
+				});
 
+								$('#Druid').hover(function() {
+					$('#battle-message').html(elephant.name + ': attack: ' + elephant.attack + ' -- defense: ' + elephant.defense + ' -- accuracy: ' + elephant.accuracy);
+				}, function() {
+					$('#battle-message').html('');
+				});
 
-			
+									$('#Knight').hover(function() {
+					$('#battle-message').html(ent.name + ': attack: ' + ent.attack + ' -- defense: ' + ent.defense + ' -- accuracy: ' + ent.accuracy);
+				}, function() {
+					$('#battle-message').html('');
+				});
+				
+		
 			const merchant1 = $('#Warrior');
 			const merchant2 = $('#Mage');
 			const merchant3 = $('#Wizard');
 			const merchant4 = $('#Guard');
 			const merchant5 = $('#Druid');
 			const merchant6 = $('#Knight');
+
 
 			merchant1.on('click', (e) => {
 				console.log('Warrior clicked');
@@ -538,8 +566,6 @@ console.log('works');
 					$('#battlefield').append($('<div>').attr('id', 'mage').addClass('good-guy'));
 					playerUnitArray.push(wizard);
 				}
-
-				
 			});
 			merchant4.on('click', (e) => {
 				console.log('Guard clicked');
@@ -574,6 +600,10 @@ console.log('works');
 			});
 		
 				$('#exitShop').on('click', (e) => {
+					if (playerUnitArray.length === 0) {
+						alert("You're trying to leave your kingdom defenseless! Go ahead and buy some units.");
+						return;
+					}
 					$('#outer').children().remove();
 					$('#exitShop').remove();
 					cpuUnitArray = cpuBoughtUnits.filter((n, i) => {
