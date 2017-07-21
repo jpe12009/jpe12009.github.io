@@ -323,6 +323,7 @@ console.log('works');
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			gameObject.cpuBuyUnits();
 			console.log('Round ' + round);
+			//$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army.');
 			break;
 
 
@@ -483,13 +484,25 @@ console.log('works');
 // *** button that starts next round **** instead of jumping straight to battle
 
 		marketMaker (){
+			// $('#battle-message').html().empty();
 			const bigHeroDiv = $('<div id="modal"><div id="outer"><div class="inner"><button type="submit" id ="Warrior"> Warrior - 5 Gold  </button></div><div class="inner"><button type="submit" id ="Mage"> Mage - 20 Gold</button></div>   <div class="inner"><button id ="Wizard"> Wizard - 30 Gold</button></div>        <div class="inner"><button type="submit" id ="Guard"> Guard - 5 Gold</button></div><div class="inner"><button type="submit" id ="Druid"> Druid - 20 Gold</button></div>     <div class="inner"><button id ="Knight"> Knight - 3O Gold</button></div></div><br></div>');
 			
 			const exitShop = $('<button id ="exitShop">Exit Shop</button>');
 
 			$('#battlefield').append(bigHeroDiv).append(exitShop);
 
-			const merchant1 = $('#Warrior');// .on('click', );
+
+			$('#Warrior').on('mouseover', () => { 
+				console.log('hovering');
+				$('#battle-message').html(soldier.name + ': attack: ' + soldier.attack + ' -- defense: ' + soldier.defense + ' -- accuracy: ' + soldier.accuracy);
+			});
+
+
+
+
+
+			
+			const merchant1 = $('#Warrior');
 			const merchant2 = $('#Mage');
 			const merchant3 = $('#Wizard');
 			const merchant4 = $('#Guard');
