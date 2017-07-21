@@ -184,8 +184,8 @@ console.log('works');
 
 	const checkCpuRoundWin = () => {
 		
-		const playerLife = $('<div>');
-		playerLife.attr('id', 'playerLife');
+		const playerLife = $('#playerLife');
+		//playerLife.text();
 		let lifeDamageToPlayer = 0;
 
 		console.log(cpuUnitArray);
@@ -201,7 +201,7 @@ console.log('works');
 					round++;
 $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageToPlayer + ' damage to your castle. You have ' + playerCastle.life + ' life remaining.');
 					console.log(playerCastle.life, 'player life'); 
-
+					//playerLife.text('Player Life = ' + playerCastle.life);
 			gameObject.newRound();
 			//gameObject.cpuBuyUnits();
 			// gameObject.marketMaker();
@@ -215,8 +215,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 	const checkPlayerRoundWin = () => {
 		
-		const cpuLife = $('<div/>');
-		cpuLife.attr('id', 'computerLife');
+		const cpuLife = $('#computerLife');
+		//cpuLife.text();
 
 		let lifeDamageToCpu = 0;
 
@@ -229,7 +229,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			cpuCastle.life -= lifeDamageToCpu;
 			cpuLife.text(cpuCastle.life);
 
-			$('#gold').append(cpuLife); // currently not displaying
+			//$('#gold').append(cpuLife); // currently not displaying
 		// append life div
 			round++;
 			$('#battle-message').html('You won the round! Your forces deal ' + lifeDamageToCpu + ' damage to the enemy\'s castle. It has ' + cpuCastle.life + ' life remaining.');
@@ -313,7 +313,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			// const makeWarrior = $('<div/>').attr('id', 'knight');
 		},
 		newRound () {
-
+		
 			console.log('new round');
 			$('#battle').remove();
 			$('#modal').remove();
@@ -323,11 +323,15 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 			switch (round) {
 			case 1:
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 			// cpuUnitArray = [];
 			// playerUnitArray = [];
 			
 			cpuCastle.gold = 30;
 			$('#gold').text('Gold: ' + playerCastle.gold);
+			$('#playerLife').text('Player life = ' + playerCastle.life);
+			$('#computerLife').text('Computer life = ' + cpuCastle.life);
 			gameObject.cpuBuyUnits();
 			console.log('Round ' + round);
 			$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army.');
@@ -335,7 +339,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 
 			case 2:
-			
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
 			cpuUnitArray = [];
@@ -353,6 +358,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 
 			case 3:
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
 			cpuUnitArray = [];
@@ -367,6 +374,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 4:
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
 			cpuUnitArray = [];
@@ -381,6 +390,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 5:
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
 			cpuUnitArray = [];
@@ -395,6 +406,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 6:
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
 			cpuUnitArray = [];
@@ -409,6 +422,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 7:
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
 			cpuUnitArray = [];
@@ -423,6 +438,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 8:
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
 			cpuUnitArray = [];
@@ -437,6 +454,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 9:
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
 			cpuUnitArray = [];
@@ -451,6 +470,8 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 10:
+				$('#computerLife').text('Computer Life  = ' + cpuCastle.life);
+			$('#playerLife').text('Player Life  = ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
 			cpuUnitArray = [];
