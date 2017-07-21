@@ -68,10 +68,10 @@ console.log('works');
 						playerUnitArray[0].battle();
 					}
 					else if (playerUnitArray[0].defense <= 0) {
-						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
+						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was defeated by the ' + this.name + '. Stand your ground!');
 						console.log('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
 					defeatedHeros.push(playerUnitArray[0]);
-					$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
+					$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was defeated by the ' + this.name + '. Stand your ground!');
 					gameObject.removeFromPlayerBattlefield();
 					defeatedHeros.pop();
 					playerUnitArray.shift();
@@ -90,7 +90,8 @@ console.log('works');
 				}
 			} else if (Math.random() > this.accuracy) {
 				console.log('The ' + this.name + ' missed! Your unit unleashes a counterattack!');
-				playerUnitArray[0].battle();
+				$('#battle').remove();
+				gameObject.createBattleButton();
 				
 			}
 
@@ -124,17 +125,18 @@ console.log('works');
 					cpuUnitArray[0].battle();// changed from i
 					$('#battle-message').html('The ' + cpuUnitArray[0].name + ' survives and strikes back!');
 					console.log('The ' + cpuUnitArray[0].name + ' survives and strikes back!');
-					cpuUnitArray[0].battle();
+					$('#battle').remove();
+					gameObject.createBattleButtonCpu();
 				}
 				//console.log(cpuUnitArray[i].defense, ' remaining defense');
 				else if (cpuUnitArray[0].defense <= 0) {
 					defeatedEnemies.push(cpuUnitArray[0]);
-					$('#battle-message').html('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
+					$('#battle-message').html('Your ' + this.name + ' defeated the ' + cpuUnitArray[0].name + '.');
 					//alert('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
 					gameObject.removeFromCpuBattlefield();
 					defeatedEnemies.pop();
-					$('#battle-message').html('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
-					console.log('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
+					$('#battle-message').html('Your ' + this.name + ' defeated the ' + cpuUnitArray[0].name + '.');
+					console.log('Your ' + this.name + ' defeated the ' + cpuUnitArray[0].name + '.');
 					cpuUnitArray.shift();
 					checkPlayerRoundWin();
 					
@@ -152,7 +154,7 @@ console.log('works');
 				//this line causing errors
 				
 			} else if (Math.random() > this.accuracy){
-				$('#battle-message').html('The ' + this.name + ' missed! Your opponent unleashes a counterattack!');
+				$('#battle-message').html('Your ' + this.name + ' missed! Your opponent unleashes a counterattack!');
 				console.log('The ' + this.name + ' missed! Your opponent unleashes a counterattack!');
 				//return cpuUnitArray[0].battle(); // changed from i
 				$('#battle').remove();
@@ -305,7 +307,7 @@ console.log('works');
 		},
 		newRound () {
 			console.log('new round');
-			
+			$('#modal').remove();
 			// $('.good-guy').remove();
 			//$('.bad-guy').remove();
 			$('#round').text('Round ' + round);
@@ -424,7 +426,8 @@ console.log('works');
 
 			createBattleButton () {
 					const battleButton = $('<button/>').text('Click here to attack with your units!').attr('id', 'battle');
-					$('.img-div').eq(0).append(battleButton);
+				//	$('.img-div').eq(0).append(battleButton);
+														$('#modal').append(battleButton);
 					battleButton.on('click', (e) => {
 							
 										//const fight = $('#battle').val();
