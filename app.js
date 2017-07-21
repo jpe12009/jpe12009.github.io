@@ -31,6 +31,8 @@ console.log('works');
 	let cpuBoughtUnits = [];
 	let cpuUnitArray = [];
 
+	let defeatedEnemies = [];
+
 //--------------------------------------------------------------------------------------------------------
 
 //	COMPUTER AND PLAYER CLASSES
@@ -60,13 +62,15 @@ console.log('works');
 						
 						playerUnitArray[0].battle();
 						console.log('Your ' + playerUnitArray[0].name + ' survives and strikes back!');
+						playerUnitArray[0].battle();
 					}
 					else if (playerUnitArray[0].defense <= 0) {
+						console.log('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
 					playerUnitArray.shift();
 					checkCpuRoundWin();
-					console.log('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
-					if (checkPlayerRoundWin() === false) {
-						return playerUnitArray[0].battle();
+					
+					if (checkCpuRoundWin() === false) {
+						cpuUnitArray[0].battle();
 					} 
 
 				// if checkplayerround win = false, do another attack????
@@ -108,13 +112,15 @@ console.log('works');
 					
 					cpuUnitArray[0].battle();// changed from i
 					console.log('The ' + cpuUnitArray[0].name, ' survives and strikes back!');
+					cpuUnitArray[0].battle();
 				}
 				//console.log(cpuUnitArray[i].defense, ' remaining defense');
 				else if (cpuUnitArray[0].defense <= 0) {
-					
+					defeatedEnemies.push(cpuUnitArray[0]);
+					console.log('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
 					cpuUnitArray.shift();
 					checkPlayerRoundWin();
-					console.log('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
+					
 					if (checkPlayerRoundWin() === false) {
 						playerUnitArray[0].battle();
 					} 
@@ -153,8 +159,9 @@ console.log('works');
 
 
 	const checkCpuRoundWin = () => {
-		playerCastle.life = 10;
-		const playerLife = $('<div>').attr('id', 'playerLife');
+		
+		const playerLife = $('<div>');
+		playerLife.attr('id', 'playerLife');
 		let lifeDamageToPlayer;
 
 		if (playerUnitArray.length === 0) {
@@ -162,7 +169,7 @@ console.log('works');
 			lifeDamageToPlayer += cpuUnitArray[i].offense; 
 		}
 		playerCastle.life -= lifeDamageToPlayer;
-		playerLife.text(playerCastle.life - lifeDamageToPlayer);
+		playerLife.text(playerCastle.life);
 
 		$('#round').append(playerLife);
 					round++;
@@ -178,16 +185,18 @@ console.log('works');
 	};
 
 	const checkPlayerRoundWin = () => {
-		cpuCastle.life = 10; // just testing to not get NaN
-		const cpuLife = $('<div>').attr('id', 'computerLife');
-		let lifeDamageToCpu;
+		
+		const cpuLife = $('<div/>');
+		cpuLife.attr('id', 'computerLife');
+
+		let lifeDamageToCpu = 0;
 
 		if (cpuUnitArray.length === 0){
 			for (let i = 0; i < playerUnitArray.length; i++) {
 			lifeDamageToCpu += playerUnitArray[i].offense;
 			}
 			cpuCastle.life -= lifeDamageToCpu;
-			cpuLife.text(cpuCastle.life - lifeDamageToCpu);
+			cpuLife.text(cpuCastle.life);
 
 			$('#gold').append(cpuLife);
 		// append life div
@@ -277,8 +286,8 @@ console.log('works');
 			$('#round').text('Round ' + round);
 			switch (round) {
 			case 1:
-			cpuUnitArray = [];
-			playerUnitArray = [];
+			// cpuUnitArray = [];
+			// playerUnitArray = [];
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			cpuCastle.gold = 30;
 			playerCastle.gold = 30;
@@ -287,14 +296,14 @@ console.log('works');
 			break;
 			case 2:
 			$('#gold').text('Gold: ' + playerCastle.gold);
-			cpuCastle.gold = 50;
+			cpuCastle.gold += 50;
 			playerCastle.gold = 50;
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
 			break;
 			case 3:
 			$('#gold').text('Gold: ' + playerCastle.gold);
-			cpuCastle.gold = 70;
+			cpuCastle.gold += 70;
 			playerCastle.gold = 70;
 			console.log('Round ' + round);
 			//gameObject.cpuBuyUnits(); //added buy units
