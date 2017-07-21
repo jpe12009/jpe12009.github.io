@@ -78,10 +78,10 @@ console.log('works');
 					playerUnitArray.shift();
 					checkCpuRoundWin();
 					
-					if (checkCpuRoundWin() === false) {
-						$('#battle').remove();
-						gameObject.createBattleButtonCpu();
-					} 
+					// if (checkCpuRoundWin() === false) {
+					// 	$('#battle').remove();
+					// 	gameObject.createBattleButtonCpu();
+					// } 
 
 				// if checkplayerround win = false, do another attack????
 
@@ -197,16 +197,19 @@ console.log('works');
 		playerCastle.life -= lifeDamageToPlayer;
 		playerLife.text(playerCastle.life);
 
-		$('#round').append(playerLife);
+		$('#round').append(playerLife); // currently not displaying
 					round++;
-					console.log(playerCastle.life, 'player life'); // returning NaN
+$('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageToPlayer + ' damage to your castle. You have ' + playerCastle.life + ' life remaining.');
+					console.log(playerCastle.life, 'player life'); 
+
 			gameObject.newRound();
 			//gameObject.cpuBuyUnits();
 			// gameObject.marketMaker();
 			//return playerCastle.life -= lifeDamageToPlayer;
 		} 
 		else if (playerUnitArray.length > 0) {
-			return false;
+			$('#battle').remove();
+			gameObject.createBattleButtonCpu();
 		}
 	};
 
@@ -226,10 +229,12 @@ console.log('works');
 			cpuCastle.life -= lifeDamageToCpu;
 			cpuLife.text(cpuCastle.life);
 
-			$('#gold').append(cpuLife);
+			$('#gold').append(cpuLife); // currently not displaying
 		// append life div
 			round++;
+			$('#battle-message').html('You won the round! Your forces deal ' + lifeDamageToCpu + ' damage to the enemy\'s castle. It has ' + cpuCastle.life + ' life remaining.');
 			console.log(cpuCastle.life, 'cpu life');
+
 			gameObject.newRound();
 			//gameObject.cpuBuyUnits();
 			// gameObject.marketMaker();
@@ -244,7 +249,7 @@ console.log('works');
 
 //	UNITS - CPU OFFENSE
 
-	const goblin = new CpuUnit('goblin', 1, 1, .5, 5);
+	const goblin = new CpuUnit('goblin', 2, 1, .5, 5);
 
 	const orc = new CpuUnit('orc', 3, 4, .6, 20);
 
@@ -261,7 +266,7 @@ console.log('works');
 
 //	UNITS - PLAYER OFFENSE
 
-	const soldier = new PlayerUnit('warrior', 1, 1, .5, 5);
+	const soldier = new PlayerUnit('warrior', 2, 1, .5, 5);
 
 	const knight = new PlayerUnit('mage', 3, 4, .6, 20);
 
@@ -308,7 +313,9 @@ console.log('works');
 			// const makeWarrior = $('<div/>').attr('id', 'knight');
 		},
 		newRound () {
+
 			console.log('new round');
+			$('#battle').remove();
 			$('#modal').remove();
 			// $('.good-guy').remove();
 			//$('.bad-guy').remove();
@@ -323,14 +330,21 @@ console.log('works');
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			gameObject.cpuBuyUnits();
 			console.log('Round ' + round);
-			//$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army.');
+			$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army.');
 			break;
 
 
 			case 2:
+			
+			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+
+
 			cpuCastle.gold = 50;
-			playerCastle.gold = 50;
+			playerCastle.gold += 50;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -339,14 +353,117 @@ console.log('works');
 
 
 			case 3:
+			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
 			cpuCastle.gold = 70;
-			playerCastle.gold = 70;
+			playerCastle.gold += 70;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
 			gameObject.createMarketButton();
 			break;
+
+			case 4:
+					$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold = 90;
+			playerCastle.gold += 90;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 5:
+					$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold = 100;
+			playerCastle.gold += 100;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 6:
+					$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =110;
+			playerCastle.gold += 110;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 7:
+					$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =120;
+			playerCastle.gold += 120;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 8:
+					$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =130;
+			playerCastle.gold += 130;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 9:
+					$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =140;
+			playerCastle.gold += 140;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 10:
+			$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =150;
+			playerCastle.gold += 150;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
 		}
 		},
 		
@@ -688,6 +805,7 @@ console.log('works');
 
 $('#market').on('click', (e) => { 
 	$('button').remove();
+	$('#battle-message').text('Welcome to the market! Hover over the unit names to see their stats.');
 	console.log('button works');
 	gameObject.marketMaker();
 
