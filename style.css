@@ -168,7 +168,7 @@
 	/*left: 58.25px;
 	right: 58.25px;*/
 	background: linear-gradient(#913202, #cdfa86);
-	padding: 20px;
+	/*padding: 20px;*/
 	text-align: center;
 /*	display:block;
     overflow:hidden;*/
@@ -228,6 +228,7 @@ body {
 #modal {
 	
 	height: 50px;
+	width: 100%;
 	margin: 0 auto;
 	text-align:center;
 }

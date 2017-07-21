@@ -318,18 +318,20 @@ console.log('works');
 			case 1:
 			// cpuUnitArray = [];
 			// playerUnitArray = [];
-			$('#gold').text('Gold: ' + playerCastle.gold);
+			
 			cpuCastle.gold = 30;
-			playerCastle.gold = 30;
+			$('#gold').text('Gold: ' + playerCastle.gold);
 			gameObject.cpuBuyUnits();
 			console.log('Round ' + round);
 			break;
 
 
 			case 2:
-			$('#gold').text('Gold: ' + playerCastle.gold);
+			
+
 			cpuCastle.gold += 50;
 			playerCastle.gold = 50;
+			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
 			gameObject.createMarketButton();
@@ -337,9 +339,10 @@ console.log('works');
 
 
 			case 3:
-			$('#gold').text('Gold: ' + playerCastle.gold);
+			
 			cpuCastle.gold += 70;
 			playerCastle.gold = 70;
+			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
 			gameObject.createMarketButton();
