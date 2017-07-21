@@ -328,9 +328,8 @@ console.log('works');
 
 
 			case 2:
-			
-
-			cpuCastle.gold += 50;
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuCastle.gold = 50;
 			playerCastle.gold = 50;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
@@ -340,8 +339,8 @@ console.log('works');
 
 
 			case 3:
-			
-			cpuCastle.gold += 70;
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuCastle.gold = 70;
 			playerCastle.gold = 70;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
@@ -431,24 +430,17 @@ console.log('works');
 			} ,
 
 			createBattleButton () {
-					const battleButton = $('<button/>').text('Click here to attack with your units!').attr('id', 'battle');
+					const battleButton = $('<button/>').text('Click here to attack with your units!').attr('id', 'battle').addClass('playerBattles');
 				//	$('.img-div').eq(0).append(battleButton);
-														$('#modal').append(battleButton);
+					$('#modal').append(battleButton);
 					battleButton.on('click', (e) => {
-							
-										//const fight = $('#battle').val();
-						
-						
-						playerUnitArray[0].battle();
-					//	$('#battle').remove();
-							
-
+					playerUnitArray[0].battle();
 					});
 
 				},
 
 				createBattleButtonCpu () {
-					const battleButton = $('<button/>').text('The enemies are attacking! Click here').attr('id', 'battle');
+					const battleButton = $('<button/>').text('The enemies are attacking! Click here').attr('id', 'battle').addClass('cpuBattles');
 					$('.img-div').eq(0).append(battleButton);
 					battleButton.on('click', (e) => {
 							
