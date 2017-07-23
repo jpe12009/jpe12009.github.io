@@ -266,7 +266,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 	const goblin = new CpuUnit('goblin', 2, 1, .5, 5);
 
-	const orc = new CpuUnit('orc', 3, 4, .5, 20);
+	const orc = new CpuUnit('orc', 3, 4, .6, 20);
 
 	const lich = new CpuUnit('lich', 5, 5, .5, 30);
 
@@ -283,7 +283,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 	const soldier = new PlayerUnit('warrior', 2, 1, .5, 5);
 
-	const knight = new PlayerUnit('mage', 3, 4, .5, 20);
+	const knight = new PlayerUnit('mage', 3, 4, .6, 20);
 
 	const wizard = new PlayerUnit('wizard', 5, 5, .5, 30);
 
@@ -342,7 +342,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			// cpuUnitArray = [];
 			// playerUnitArray = [];
-			
+			playerCastle.gold = 30;
 			cpuCastle.gold = 30;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
@@ -695,7 +695,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 				} else if (playerCastle.gold >= 5) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 5));
 					$('#battlefield').append($('<div>').attr('id', 'knight').addClass('good-guy'));
-					playerUnitArray.push(soldier);
+					playerUnitArray.push(new PlayerUnit('warrior', 2, 1, .5, 5));
 				}
 			});
 			merchant2.on('click', (e) => {
@@ -705,7 +705,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 				} else if (playerCastle.gold >= 20) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 20));
 					$('#battlefield').append($('<div>').attr('id', 'wizard').addClass('good-guy'));
-					playerUnitArray.push(knight);
+					playerUnitArray.push(new PlayerUnit('mage', 3, 4, .6, 20));
 				}
 			});
 			merchant3.on('click', (e) => {
@@ -715,7 +715,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 				} else if (playerCastle.gold >= 30) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 30));
 					$('#battlefield').append($('<div>').attr('id', 'mage').addClass('good-guy'));
-					playerUnitArray.push(wizard);
+					playerUnitArray.push(new PlayerUnit('wizard', 5, 5, .5, 30));
 				}
 			});
 			merchant4.on('click', (e) => {
@@ -725,7 +725,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 				} else if (playerCastle.gold >= 5) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 5));
 					$('#battlefield').append($('<div>').attr('id', 'baby').addClass('good-guy'));
-					playerUnitArray.push(dwarf);
+					playerUnitArray.push(new PlayerUnit('guard', 1, 3, .6, 5));
 				}
 			});
 			merchant5.on('click', (e) => {
@@ -735,7 +735,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 				} else if (playerCastle.gold >= 20) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 20));
 					$('#battlefield').append($('<div>').attr('id', 'dwarf').addClass('good-guy'));
-					playerUnitArray.push(elephant);
+					playerUnitArray.push(new PlayerUnit('druid', 2, 5, .7, 20));
 				}
 			});
 			merchant6.on('click', (e) => {
@@ -745,7 +745,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 				} else if (playerCastle.gold >= 30) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 30));
 					$('#battlefield').append($('<div>').attr('id', 'hero').addClass('good-guy'));
-					playerUnitArray.push(ent);
+					playerUnitArray.push(new PlayerUnit('knight', 3, 9, .8, 30));
 					console.log(playerUnitArray);
 				}
 			});
@@ -828,7 +828,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 						gameObject.restartGame();
 					} else if (cpuCastle.life <= 0) {
 						round = 0;
-						alert('The last of the evil forces are smitten by your righteous warriors. The kingdom is saved! Click "OK" to play again.');
+						alert('The last of the evil forces are defeated by your heroes. The kingdom is saved! Click "OK" to play again.');
 						gameObject.restartGame();
 					}
 
@@ -846,6 +846,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 						defeatedEnemies = [];
 						defeatedHeros = [];
+			$('#gold').text('Gold: ' + (playerCastle.gold));
 					console.log('new round');
 			$('#battle').remove();
 			$('#modal').remove();
@@ -855,7 +856,10 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove();
+			
 			gameObject.cpuBuyUnits();
+			
+			$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army.');
 
 				},
 				restartGame () {
