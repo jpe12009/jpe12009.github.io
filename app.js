@@ -687,7 +687,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			createBattleButton () {
 					const battleButton = $('<button/>').text('Click here to attack with your units!').attr('id', 'battle');
 				//	$('.img-div').eq(0).append(battleButton);
-					$('#modal').append(battleButton);
+					$('#modal').prepend(battleButton);
 					battleButton.on('click', (e) => {
 					playerUnitArray[0].battle();
 					});
