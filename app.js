@@ -54,21 +54,21 @@ console.log('works');
 
 			if (Math.random() <= this.accuracy) {
 				playerUnitArray[0].defense -= this.attack;
-				$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was hit by a ' + this.name);
-				console.log('Your ' + playerUnitArray[0].name + ' was hit by a ' + this.name);
+				$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was hit by a ' + this.name + ' for ' + cpuUnitArray[0].attack + ' points of damage.');
+				console.log('Your ' + playerUnitArray[0].name + ' was hit by a ' + this.name + '. It has ' + this.defense + ' defense remaining.');
 				if (playerUnitArray[0].defense > 0) {
 						
 						//playerUnitArray[0].battle();
-						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' survives and strikes back!');
+						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' survives with ' + playerUnitArray[0].defense + ' defense left and strikes back!');
 						console.log('Your ' + playerUnitArray[0].name + ' survives and strikes back!');
 						$('#battle').remove();
 						gameObject.createBattleButton();
 					}
 					else if (playerUnitArray[0].defense <= 0) {
-						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was defeated by the ' + this.name + '. Stand your ground!');
+						$('#battle-message').html('Your ' + playerUnitArray[0].name + ' suffer ' + cpuUnitArray[0].attack + ' points of damage and is defeated by the ' + this.name + '. Stand your ground!');
 						console.log('Your ' + playerUnitArray[0].name + ' was defeated by a(n) ' + this.name + '. Stand your ground!');
 					defeatedHeros.push(playerUnitArray[0]);
-					$('#battle-message').html('Your ' + playerUnitArray[0].name + ' was defeated by the ' + this.name + '. Stand your ground!');
+					$('#battle-message').html('Your ' + playerUnitArray[0].name + ' suffer ' + cpuUnitArray[0].attack + ' points of damage and is defeated by the ' + this.name + '. Stand your ground!');
 					gameObject.removeFromPlayerBattlefield();
 					defeatedHeros.pop();
 					playerUnitArray.shift();
@@ -124,7 +124,7 @@ console.log('works');
 				if (cpuUnitArray[0].defense > 0) { // try i
 					
 					//cpuUnitArray[0].battle();// changed from i
-					$('#battle-message').html('The ' + cpuUnitArray[0].name + ' survives and strikes back!');
+					$('#battle-message').html('The ' + cpuUnitArray[0].name + ' takes ' + playerUnitArray[0].attack + ' points of damage and strikes back!');
 					console.log('The ' + cpuUnitArray[0].name + ' survives and strikes back!');
 					$('#battle').remove();
 					gameObject.createBattleButtonCpu();
@@ -132,11 +132,11 @@ console.log('works');
 				//console.log(cpuUnitArray[i].defense, ' remaining defense');
 				else if (cpuUnitArray[0].defense <= 0) {
 					defeatedEnemies.push(cpuUnitArray[0]);
-					$('#battle-message').html('Your ' + this.name + ' defeated the ' + cpuUnitArray[0].name + '.');
+					$('#battle-message').html('Your ' + this.name + ' strikes the ' + cpuUnitArray[0].name + ' for ' + playerUnitArray[0].attack + ' points of damage and destroys it.');
 					//alert('Your ' + this.name + ' defeated a ' + cpuUnitArray[0].name + '.');
 					gameObject.removeFromCpuBattlefield();
 					defeatedEnemies.pop();
-					$('#battle-message').html('Your ' + this.name + ' defeated the ' + cpuUnitArray[0].name + '.');
+					$('#battle-message').html('Your ' + this.name + ' strikes the ' + cpuUnitArray[0].name + ' for ' + playerUnitArray[0].attack + ' points of damage and destroys it.');
 					console.log('Your ' + this.name + ' defeated the ' + cpuUnitArray[0].name + '.');
 					cpuUnitArray.shift();
 					checkPlayerRoundWin();
@@ -244,7 +244,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			//$('#gold').append(cpuLife); // currently not displaying
 		// append life div
 			 // this might be the problem
-			$('#battle-message').html('You won the round! Your forces deal ' + lifeDamageToCpu + ' damage to the enemy\'s castle. It has ' + cpuCastle.life + ' life remaining.');
+			$('#battle-message').html('You won the round! Your forces deal ' + lifeDamageToCpu + ' damage to the enemy\'s castle. It has ' + cpuCastle.life + ' life remaining. Purchase some units and prepare yourself for the next attack.');
 			console.log(cpuCastle.life, 'cpu life');
 			if (cpuCastle.life > 0) 	{
 				round++;
@@ -274,9 +274,9 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 	const zombie = new CpuUnit('zombie', 1, 3, .6, 5);
 
-	const minion = new CpuUnit('minion', 2, 5, .7, 20);
+	const minion = new CpuUnit('minion', 2, 6, .7, 20);
 
-	const medusa = new CpuUnit('medusa', 3, 9, .8, 30);
+	const medusa = new CpuUnit('medusa', 3, 8, .8, 30);
 
 
 //	UNITS - PLAYER OFFENSE
@@ -291,9 +291,9 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 	const dwarf = new PlayerUnit('guard', 1, 3, .6, 5);
 
-	const elephant = new PlayerUnit('druid', 2, 5, .7, 20);
+	const elephant = new PlayerUnit('druid', 2, 6, .7, 20);
 
-	const ent = new PlayerUnit('knight', 3, 9, .8, 30);
+	const ent = new PlayerUnit('knight', 3, 8, .8, 30);
 
 // let imgHeight = 400;
 // let numImgs = 12;
@@ -501,8 +501,89 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			gameObject.createMarketButton();
 			break;
 
+			case 11:
+				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+			$('#playerLife').text('Player life: ' + playerCastle.life);
+			$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =160;
+			playerCastle.gold += 160;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 12:
+				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+			$('#playerLife').text('Player life: ' + playerCastle.life);
+			$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =170;
+			playerCastle.gold += 170;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 13:
+				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+			$('#playerLife').text('Player life: ' + playerCastle.life);
+			$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =180;
+			playerCastle.gold += 180;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 14:
+				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+			$('#playerLife').text('Player life: ' + playerCastle.life);
+			$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =190;
+			playerCastle.gold += 190;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
+
+			case 15:
+				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+			$('#playerLife').text('Player life: ' + playerCastle.life);
+			$('.good-guy').remove();
+			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
+			cpuUnitArray = [];
+			playerUnitArray = [];
+
+			cpuCastle.gold =200;
+			playerCastle.gold += 200;
+			$('#gold').text('Gold: ' + playerCastle.gold);
+			console.log('Round ' + round);
+			gameObject.cpuBuyUnits(); //added buy units
+			gameObject.createMarketButton();
+			break;
 		}
 		},
+
+
 		
 		appendCpuUnits (cpuBoughtUnits) {
 			for (var i = 0; i < cpuBoughtUnits.length; i++) {
@@ -562,6 +643,14 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			return null;
 		}
 	},
+
+
+
+
+
+
+
+
 
 // at the beginning of each round cpu gets a certain amount of gold
 // it randomly buys what it can until nothing else can be bought
@@ -735,7 +824,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 				} else if (playerCastle.gold >= 20) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 20));
 					$('#battlefield').append($('<div>').attr('id', 'dwarf').addClass('good-guy'));
-					playerUnitArray.push(new PlayerUnit('druid', 2, 5, .7, 20));
+					playerUnitArray.push(new PlayerUnit('druid', 2, 6, .7, 20));
 				}
 			});
 			merchant6.on('click', (e) => {
@@ -745,7 +834,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 				} else if (playerCastle.gold >= 30) {
 					$('#gold').text('Gold: ' + (playerCastle.gold-= 30));
 					$('#battlefield').append($('<div>').attr('id', 'hero').addClass('good-guy'));
-					playerUnitArray.push(new PlayerUnit('knight', 3, 9, .8, 30));
+					playerUnitArray.push(new PlayerUnit('knight', 3, 8, .8, 30));
 					console.log(playerUnitArray);
 				}
 			});
@@ -846,22 +935,22 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 						defeatedEnemies = [];
 						defeatedHeros = [];
-			$('#gold').text('Gold: ' + (playerCastle.gold));
-					console.log('new round');
-			$('#battle').remove();
-			$('#modal').remove();
-			$('#round').text('Round ' + round);
+				$('#gold').text('Gold: ' + (playerCastle.gold));
+						console.log('new round');
+				$('#battle').remove();
+				$('#modal').remove();
+				$('#round').text('Round ' + round);
 
-			$('#computerLife').text('Computer life: ' + cpuCastle.life);
-			$('#playerLife').text('Player life: ' + playerCastle.life);
-			$('.good-guy').remove();
-			$('.bad-guy').remove();
-			
-			gameObject.cpuBuyUnits();
-			
-			$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army.');
+				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#playerLife').text('Player life: ' + playerCastle.life);
+				$('.good-guy').remove();
+				$('.bad-guy').remove();
+				
+				gameObject.cpuBuyUnits();
+				
+				$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army.');
 
-				},
+					},
 				restartGame () {
 						playerCastle.gold = 30;
 						playerCastle.life = 50;
@@ -876,8 +965,6 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 						defeatedHeros = [];
 						gameObject.afterWinningStart();
 						gameObject.createMarketButton();
-						// cpu is creating units with gold equal to the amount given in following round of win/loss
-						// those units aren't counted as being in an array - figure out correct order
 				}
 
 
@@ -918,3 +1005,12 @@ $('#market').on('click', (e) => {
 gameObject.newRound();
 
 });
+
+// A readme.md file with explanations of the technologies used, the approach taken, a link to your live site, installation instructions, unsolved problems, etc.
+// Most importantly a technical demonstration of your app which:
+
+// Is 5 minutes in length
+// Shows off all features of the app
+// Explains the technical details
+// Explains the technical challenges
+// Explains which improvements you might make
