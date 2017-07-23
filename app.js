@@ -99,6 +99,9 @@ console.log('works');
 			
 		//	}
 		}
+		resetDefense() {
+			this.defense = defense;
+		}
 	}
 
 	class PlayerUnit {
@@ -173,10 +176,13 @@ console.log('works');
 		// }
 			//}
 		}
+		resetDefense() {
+			this.defense = defense;
+		}
 	}
 //--------------------------------------------------------------------------------------------------------
 
-
+// at end of round reset all defense properties to 0
 
 	const checkCpuRoundWin = () => {
 		
@@ -827,7 +833,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 					}
 
 				},
-				AfterWinningStart () {
+				afterWinningStart () {
 					  playerCastle.gold = 30;
 						playerCastle.life = 50;
 						cpuCastle.gold = 30;
@@ -844,8 +850,13 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			$('#battle').remove();
 			$('#modal').remove();
 			$('#round').text('Round ' + round);
+
 			$('#computerLife').text('Computer life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
+			$('.good-guy').remove();
+			$('.bad-guy').remove();
+			gameObject.cpuBuyUnits();
+
 				},
 				restartGame () {
 						playerCastle.gold = 30;
@@ -859,7 +870,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 						defeatedEnemies = [];
 						defeatedHeros = [];
-						gameObject.newRound();
+						gameObject.afterWinningStart();
 						gameObject.createMarketButton();
 						// cpu is creating units with gold equal to the amount given in following round of win/loss
 						// those units aren't counted as being in an array - figure out correct order
