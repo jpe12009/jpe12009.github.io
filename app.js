@@ -204,7 +204,7 @@ console.log('works');
 		}
 		//$('#round').append(playerLife); // currently not displaying
 					
-$('#battle-message').html('You lost the round. The remaining enemy forces deal a combined ' + lifeDamageToPlayer + ' damage to your castle. You have ' + playerCastle.life + ' life remaining.');
+$('#battle-message').html('You lost the round. The remaining enemy forces deal a combined ' + lifeDamageToPlayer + ' damage to your castle. All units are cleared from the field. The next wave of enemies is gathering for battle! Purchase some units and prepare yourself for the next attack.');
 					console.log(playerCastle.life, 'player life'); 
 					//playerLife.text('Player Life = ' + playerCastle.life);
 			if (playerCastle.life > 0) {
@@ -244,7 +244,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			//$('#gold').append(cpuLife); // currently not displaying
 		// append life div
 			 // this might be the problem
-			$('#battle-message').html("You won the round! Your remaining units' combined attack stat deals " + lifeDamageToCpu + " damage to the enemy's castle. It has " + cpuCastle.life + " life remaining. Purchase some units and prepare yourself for the next attack.");
+			$('#battle-message').html("You won the round! Your remaining units' combined attack stat deals " + lifeDamageToCpu + " damage to the enemy's castle. All units are cleared from the field. The next wave of enemies is gathering for battle! Purchase some units and prepare yourself for the next attack.");
 			console.log(cpuCastle.life, 'cpu life');
 			if (cpuCastle.life > 0) 	{
 				round++;
@@ -364,7 +364,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 
 
 			cpuCastle.gold = 50;
-			playerCastle.gold += 50;
+			playerCastle.gold += 40;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -382,7 +382,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold = 70;
-			playerCastle.gold += 70;
+			playerCastle.gold += 50;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -398,7 +398,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold = 90;
-			playerCastle.gold += 90;
+			playerCastle.gold += 60;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -414,7 +414,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold = 100;
-			playerCastle.gold += 100;
+			playerCastle.gold += 80;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -430,7 +430,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =110;
-			playerCastle.gold += 110;
+			playerCastle.gold += 90;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -446,7 +446,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =120;
-			playerCastle.gold += 120;
+			playerCastle.gold += 100;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -462,7 +462,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =130;
-			playerCastle.gold += 130;
+			playerCastle.gold += 110;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -478,7 +478,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =140;
-			playerCastle.gold += 140;
+			playerCastle.gold += 120;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -494,7 +494,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =150;
-			playerCastle.gold += 150;
+			playerCastle.gold += 130;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -510,7 +510,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =160;
-			playerCastle.gold += 160;
+			playerCastle.gold += 140;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -526,7 +526,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =170;
-			playerCastle.gold += 170;
+			playerCastle.gold += 150;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -542,7 +542,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =180;
-			playerCastle.gold += 180;
+			playerCastle.gold += 160;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -558,7 +558,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =190;
-			playerCastle.gold += 190;
+			playerCastle.gold += 170;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -574,7 +574,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			playerUnitArray = [];
 
 			cpuCastle.gold =200;
-			playerCastle.gold += 200;
+			playerCastle.gold += 180;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			console.log('Round ' + round);
 			gameObject.cpuBuyUnits(); //added buy units
@@ -687,6 +687,10 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			createBattleButton () {
 					const battleButton = $('<button/>').text('Click here to attack with your units!').attr('id', 'battle');
 				//	$('.img-div').eq(0).append(battleButton);
+					battleButton.css('.background-color,', 'white'); // addeded on sunday
+					battleButton.css('font-weight', 'bold');
+					battleButton.css('color', 'black');
+					battleButton.css('font-size', '.9em');
 					$('#modal').prepend(battleButton);
 					battleButton.on('click', (e) => {
 					playerUnitArray[0].battle();
@@ -696,6 +700,9 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 
 				createBattleButtonCpu () {
 					const battleButton = $('<button/>').text('The enemies are attacking! Click here').attr('id', 'battle');
+					battleButton.css('background-color', 'black'); // added on sundayv
+					battleButton.css('color', 'white'); // added on sunday
+					battleButton.css('font-size', '.9em');
 
 
 					$('#modal').prepend(battleButton);
@@ -930,7 +937,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 						gameObject.restartGame();
 					} else if (cpuCastle.life <= 0) {
 						round = 0;
-						alert('The last of the evil forces are defeated by your heroes. The kingdom is saved! Click "OK" to play again.');
+						alert('The last of the evil forces are defeated by your heroes. The kingdom is saved! Click "OK" to try again.');
 						gameObject.restartGame();
 					}
 
@@ -1010,7 +1017,7 @@ $('#market').on('click', (e) => {
 	$('#battle-message').text('Welcome to the market! Hover over the unit names to see their stats.');
 	console.log('button works');
 	gameObject.marketMaker();
-
+	
 
 
 });

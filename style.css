@@ -1,3 +1,14 @@
+h1 {
+	text-align: center;
+}
+
+.img-div h2 {
+	position:absolute;
+	font-family:  Helvetica;
+	left: 44.1%;
+	margin-top: 5px;
+}
+
 #battlefield #knight{
 	height: 100px;
 	width: 100px;
@@ -208,9 +219,12 @@
 
 
 #market {
+	background-color: grey;
+	color: black;
  	width: 100%;
-
+	/*height: 35px;*/
  	margin: 0px auto;
+ 	font-size: .9em;
 }
 
 #battle {
@@ -296,13 +310,14 @@ button {
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-/*a {
-	width: 80%;
-	height: 650px;
-	margin: 0 auto;
-	display: block;
-}*/
 
+@media (max-width: 768px) {
+#battlefield {height: 450px};
+}
+
+@media (max-width: 480px) {
+#battlefield {height: 525px};
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
