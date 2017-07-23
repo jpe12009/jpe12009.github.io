@@ -204,7 +204,7 @@ console.log('works');
 		}
 		//$('#round').append(playerLife); // currently not displaying
 					
-$('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageToPlayer + ' damage to your castle. You have ' + playerCastle.life + ' life remaining.');
+$('#battle-message').html('You lost the round. The remaining enemy forces deal a combined ' + lifeDamageToPlayer + ' damage to your castle. You have ' + playerCastle.life + ' life remaining.');
 					console.log(playerCastle.life, 'player life'); 
 					//playerLife.text('Player Life = ' + playerCastle.life);
 			if (playerCastle.life > 0) {
@@ -244,7 +244,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			//$('#gold').append(cpuLife); // currently not displaying
 		// append life div
 			 // this might be the problem
-			$('#battle-message').html('You won the round! Your forces deal ' + lifeDamageToCpu + ' damage to the enemy\'s castle. It has ' + cpuCastle.life + ' life remaining. Purchase some units and prepare yourself for the next attack.');
+			$('#battle-message').html("You won the round! Your remaining units' combined attack stat deals " + lifeDamageToCpu + " damage to the enemy's castle. It has " + cpuCastle.life + " life remaining. Purchase some units and prepare yourself for the next attack.");
 			console.log(cpuCastle.life, 'cpu life');
 			if (cpuCastle.life > 0) 	{
 				round++;
@@ -338,7 +338,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 			switch (round) {
 			case 1:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			// cpuUnitArray = [];
 			// playerUnitArray = [];
@@ -346,7 +346,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			cpuCastle.gold = 30;
 			$('#gold').text('Gold: ' + playerCastle.gold);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
-			$('#computerLife').text('Computer life: ' + cpuCastle.life);
+			$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			gameObject.cpuBuyUnits();
 			console.log('Round ' + round);
 			$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army.');
@@ -354,7 +354,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 
 			case 2:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -374,7 +374,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 
 
 			case 3:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -390,7 +390,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 4:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -406,7 +406,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 5:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -422,7 +422,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 6:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -438,7 +438,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 7:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -454,7 +454,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 8:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -470,7 +470,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 9:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 					$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -486,7 +486,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 10:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -502,7 +502,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 11:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -518,7 +518,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 12:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -534,7 +534,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 13:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -550,7 +550,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 14:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -566,7 +566,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 			break;
 
 			case 15:
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			$('#playerLife').text('Player life: ' + playerCastle.life);
 			$('.good-guy').remove();
 			$('.bad-guy').remove(); // removes all div baddies from field, even those that survived.
@@ -644,11 +644,21 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 		}
 	},
 
+//	UNITS - CPU OFFENSE
 
+// 	const goblin = ;
 
+// 	const orc = ;
 
+// 	const lich = );
 
+// // 	UNITS - CPU DEFENSE
 
+// 	const zombie = ;
+
+// 	const minion = ;
+
+// 	const medusa = ;
 
 
 
@@ -658,7 +668,9 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 // cycles through until until cpu gold = 0;
 		cpuBuyUnits () {
 			cpuBoughtUnits = [];
-			const badGuyArray = [goblin, orc, lich, zombie, minion, medusa];
+
+
+			const badGuyArray = [new CpuUnit('goblin', 2, 1, .5, 5), new CpuUnit('orc', 3, 4, .6, 20), new CpuUnit('lich', 5, 5, .5, 30), new CpuUnit('zombie', 1, 3, .6, 5), new CpuUnit('minion', 2, 6, .7, 20), new CpuUnit('medusa', 3, 8, .8, 30)];
 				while (cpuCastle.gold > 0 ) {
 			//if (gameObject.randomNumber(badGuyArray) != null) {
 				cpuBoughtUnits.push(gameObject.randomNumber(badGuyArray));
@@ -846,6 +858,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 					}
 					$('#outer').children().remove();
 					$('#exitShop').remove();
+					$('#battle-message').html("You're ready to take on the enemy! Click the attack button above to initiate combat.");
 					cpuUnitArray = cpuBoughtUnits.filter((n, i) => {
 						return n != null;
 
@@ -941,7 +954,7 @@ $('#battle-message').html('You lost the round. Enemy forces deal ' + lifeDamageT
 				$('#modal').remove();
 				$('#round').text('Round ' + round);
 
-				$('#computerLife').text('Computer life: ' + cpuCastle.life);
+				$('#computerLife').text('CPU life: ' + cpuCastle.life);
 				$('#playerLife').text('Player life: ' + playerCastle.life);
 				$('.good-guy').remove();
 				$('.bad-guy').remove();
