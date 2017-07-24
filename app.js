@@ -729,6 +729,11 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 				}, function() {
 					marketButton.css("font-weight", 'normal');
 				});
+					marketButton.hover(function() {
+					marketButton.css("background-color", 'green');
+				}, function() {
+					marketButton.css("background-color", 'grey');
+				});
 				marketButton.on('click', (e) => { 
 				$('button').remove();
 
@@ -1020,10 +1025,16 @@ $('#market').on('click', (e) => {
 });
 
 $('#market').hover(function() {
+					$('#market').css("background-color", 'green');
+				}, function() {
+					$('#market').css("background-color", 'grey');
+				});
+$('#market').hover(function() {
 					$('#market').css("font-weight", 'bold');
 				}, function() {
 					$('#market').css("font-weight", 'normal');
 				});
+
 
 
 $('#modal1button').on('click', (e) => {
