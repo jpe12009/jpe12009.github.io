@@ -11,12 +11,12 @@ console.log('works');
 // global player+cpu unit arrays are being cleared by NewRound so they don't show in console logs
 
 		let cpuCastle = {
-		life: 50,
+		life: 40,
 		gold: 0
 	};
 
 	let playerCastle = {
-		life: 50,
+		life: 40,
 		gold: 30
 	};
 
@@ -723,11 +723,18 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 				},
 
 			createMarketButton() {
-				const marketButton = $('<button/>').text('Market').attr('id', 'market');
+				const marketButton = $('<button/>').text('--- Market ---').attr('id', 'market');
+					marketButton.hover(function() {
+					marketButton.css("font-weight", 'bold');
+				}, function() {
+					marketButton.css("font-weight", 'normal');
+				});
 				marketButton.on('click', (e) => { 
 				$('button').remove();
+
 				console.log('button works');
 				gameObject.marketMaker();
+			
 				});
 	
 
@@ -973,8 +980,8 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 					},
 				restartGame () {
 						playerCastle.gold = 30;
-						playerCastle.life = 50;
-						cpuCastle.life = 50;
+						playerCastle.life = 40;
+						cpuCastle.life = 40;
 						round = 1;
 						playerUnitArray = [];
 
@@ -1005,22 +1012,39 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 // give rewards and begin buying portion
 // different buttons at the end of round you can click to buy units
 
-
-
-
-
-
-
-
 $('#market').on('click', (e) => { 
 	$('button').remove();
 	$('#battle-message').text('Welcome to the market! Hover over the unit names to see their stats.');
 	console.log('button works');
 	gameObject.marketMaker();
-	
+});
 
+$('#market').hover(function() {
+					$('#market').css("font-weight", 'bold');
+				}, function() {
+					$('#market').css("font-weight", 'normal');
+				});
+
+
+$('#modal1button').on('click', (e) => {
+$('#modal1div').remove();
+$('#modal2div').css('display', 'block');
+});
+
+$('#modal2button').on('click', (e) => {
+	$('#modal1divcontainer').remove();
+	$('#modal2div').remove();
+});
+
+
+$('#modal1div').on('click', (e) => {
 
 });
+
+
+
+
+
 
 gameObject.newRound();
 
