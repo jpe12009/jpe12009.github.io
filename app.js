@@ -295,29 +295,6 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 
 	const ent = new PlayerUnit('knight', 3, 8, .8, 30);
 
-// let imgHeight = 400;
-// let numImgs = 12;
-// let cont = 0;
-// let img = $('#container').find('png');
- 
-// let animation = setInterval( moveSprite,100);
- 
-// function moveSprite(){
-//     img.css('margin-top', -1 * (cont*imgHeight));
-     
-//     cont++;
-//     if(cont == numImgs){
-//         clearInterval(animation);
-//     }
-// }
-// moveSprite();
-
-//--------------------------------------------------------------------------------------------------------
-
-// COMPUTER AND PLAYER OBJECTS
-// move to top
-
-
 //--------------------------------------------------------------------------------------------------------
 
 // GAME OBJECT
@@ -956,9 +933,9 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 				},
 				afterWinningStart () {
 					  playerCastle.gold = 30;
-						playerCastle.life = 50;
+						playerCastle.life = 40;
 						cpuCastle.gold = 30;
-						cpuCastle.life = 50;
+						cpuCastle.life = 40;
 						round = 1;
 						playerUnitArray = [];
 
