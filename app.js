@@ -262,7 +262,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 			$('#computerLife').text('CPU life: ' + cpuCastle.life);
 			gameObject.cpuBuyUnits();
 			console.log('Round ' + round);
-			$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army.');
+			$('#battle-message').html('The enemy castle is gathering its forces. Click on "Market" to start building your army. Scroll down to see how much gold you have.');
 			break;
 
 
@@ -907,7 +907,7 @@ $('#battle-message').html('You lost the round. The remaining enemy forces deal a
 
 $('#market').on('click', (e) => { 
 	$('button').remove();
-	$('#battle-message').text('Welcome to the market! Hover over the unit names to see their stats.');
+	$('#battle-message').text('Welcome to the market! Hover over the unit names to see their stats. Your remaining gold and current life total are displayed beneath this message box.');
 	console.log('button works');
 	gameObject.marketMaker();
 });
