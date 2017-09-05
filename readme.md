@@ -1,4 +1,4 @@
-Live site: https://jpe12009.github.io/
+Live site: https://justin-ellis.github.io/
 
 Technologies used: HTML, CSS, Javascript, Jquery
 
