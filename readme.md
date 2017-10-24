@@ -18,7 +18,9 @@ Styling, welcome instructions, readme
 Installation instructions: Play in your browser on your desktop, laptop, or phone
 
 Unsolved problems: 
-Animating sprites
+Make Battle button bigger and flashier
+Remove white space at the bottom of the page
+Animating sprites npm module or brew
 Overflow of low-cost units on smaller screens
 Changing remaining alerts to styled modals
 
